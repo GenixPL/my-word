@@ -9,19 +9,13 @@ class MainDrawer extends StatelessWidget {
 	Widget build(BuildContext context) {
 		var auth = Provider.of<AuthService>(context);
 		var isLoggedIn = (auth.user != null);
-		var hasDisplayName = (auth.user == null ? false : (auth.user.displayName != null));
 
 		return Drawer(
 			child: Column(
 				children: <Widget>[
 
 					UserAccountsDrawerHeader(
-						accountName: Text(
-							hasDisplayName ? auth.user.displayName : '',
-							style: TextStyle(
-								fontWeight: FontWeight.w700,
-							),
-						),
+						accountName: Text(''),
 						accountEmail: Text(
 							isLoggedIn ? auth.user.email : 'Please log in',
 							style: TextStyle(

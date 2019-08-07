@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_word/auth.dart';
 import 'package:my_word/main_drawer.dart';
 
 

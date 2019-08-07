@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:my_word/models/user.dart';
 
 
 class AuthService with ChangeNotifier {
@@ -9,12 +10,12 @@ class AuthService with ChangeNotifier {
 	FirebaseAuth _auth = FirebaseAuth.instance;
 
 	bool _isSigned = false;
-	FirebaseUser _user; //TODO: change it to own user class
+	User _user;
 
 
 	bool get isSigned => _isSigned;
 
-	FirebaseUser get user => _user;
+	User get user => _user;
 
 
 	//singleton stuff
@@ -25,17 +26,16 @@ class AuthService with ChangeNotifier {
 	AuthService._init();
 
 
-	Future<FirebaseUser> checkUserExists() async {
+	Future<User> checkUserExists() async {
 		try {
-			var user = await _auth.currentUser();
+			var firebaseUser = await _auth.currentUser();
 
-			if (user != null) {
+			if (firebaseUser != null) {
+				_user = User(firebaseUser);
 				_isSigned = true;
-				_user = user;
 
 				print('$_TAG: init: success (user exists)');
 				return user;
-
 			} else {
 				print('$_TAG: init: success (user doesn\'t exist)');
 				return null;
@@ -48,8 +48,9 @@ class AuthService with ChangeNotifier {
 
 	Future<Exception> signInEmailPassword(String email, String password) async {
 		try {
-			var user = await _auth.signInWithEmailAndPassword(email: email, password: password);
-			_user = user;
+			var firebaseUser = await _auth.signInWithEmailAndPassword(email: email, password: password);
+
+			_user = User(firebaseUser);
 			_isSigned = true;
 
 			print('$_TAG: signInEmailPassword: success');
@@ -63,8 +64,9 @@ class AuthService with ChangeNotifier {
 
 	Future<Exception> signUpEmailPassword(String email, String password) async {
 		try {
-			var user = await _auth.createUserWithEmailAndPassword(email: email, password: password);
-			_user = user;
+			var firebaseUser = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+
+			_user = User(firebaseUser);
 			_isSigned = true;
 
 			print('$_TAG: signUpEmailPassword: success');
@@ -79,6 +81,7 @@ class AuthService with ChangeNotifier {
 	Future<Exception> signOut() async {
 		try {
 			await _auth.signOut();
+
 			_user = null;
 			_isSigned = false;
 
