@@ -57,7 +57,7 @@ class _AuthEmailPasswordPageState extends State<AuthEmailPasswordPage> {
 										RaisedButton(
 											child: Text('Sign Up'),
 											onPressed: () {
-												authService.signUpEmailPassword(_email, _password).then((error) {
+												AuthService.instance.signUpEmailPassword(_email, _password).then((error) {
 													if (error == null) {
 														Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false);
 
@@ -81,7 +81,7 @@ class _AuthEmailPasswordPageState extends State<AuthEmailPasswordPage> {
 											RaisedButton(
 												child: Text('Sign In'),
 												onPressed: () {
-													authService.signInEmailPassword(_email, _password).then((error) {
+													AuthService.instance.signInEmailPassword(_email, _password).then((error) {
 														if (error == null) {
 															Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false);
 

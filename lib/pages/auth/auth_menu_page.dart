@@ -46,34 +46,8 @@ class AuthMenuPage extends StatelessWidget {
 
 					Expanded(
 						flex: 20,
-						child: Center(
-							child: Builder(builder: (context) =>
-								RaisedButton(
-									child: Text('Sign out'),
-									color: Colors.red,
-									onPressed: () {
-										authService.signOut().then((error) {
-											var snackBar;
-
-											if (error == null) {
-												snackBar = SnackBar(
-													content: Text('You have been signed out.'),
-													behavior: SnackBarBehavior.floating,
-												);
-											} else {
-												snackBar = SnackBar(
-													content: Text('There was an error, try again. [${error.toString()}]'), //TODO: remove error info
-													behavior: SnackBarBehavior.floating,
-												);
-											}
-
-											Scaffold.of(context).showSnackBar(snackBar);
-										});
-									}
-								),
-							),
-						),
-					)
+						child: Center(),
+					),
 
 				],
 			)

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_word/auth.dart';
-
 import 'package:provider/provider.dart';
-
 
 
 class MainDrawer extends StatelessWidget {
@@ -18,11 +16,23 @@ class MainDrawer extends StatelessWidget {
 				children: <Widget>[
 
 					UserAccountsDrawerHeader(
-						accountName: Text(hasDisplayName ? auth.user.uid : ''),
-						accountEmail: Text(isLoggedIn ? auth.user.email : 'Please log in'),
-						currentAccountPicture: Icon(Icons.account_circle),
+						accountName: Text(
+							hasDisplayName ? auth.user.displayName : '',
+							style: TextStyle(
+								fontWeight: FontWeight.w700,
+							),
+						),
+						accountEmail: Text(
+							isLoggedIn ? auth.user.email : 'Please log in',
+							style: TextStyle(
+								fontWeight: FontWeight.w700,
+							),
+						),
 						decoration: BoxDecoration(
-							color: Colors.indigo
+							image: DecorationImage(
+								image: AssetImage('assets/dark-background.jpg'),
+								fit: BoxFit.fill,
+							),
 						),
 					),
 
@@ -40,7 +50,7 @@ class MainDrawer extends StatelessWidget {
 						),
 						onTap: () {
 							Navigator.pop(context); //hides menu
-							Navigator.pushNamed(context, '/');
+							Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false);
 						},
 					),
 

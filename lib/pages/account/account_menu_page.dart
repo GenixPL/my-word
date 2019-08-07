@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_word/auth.dart';
 
 
 class AccountMenuPage extends StatelessWidget {
@@ -48,7 +49,28 @@ class AccountMenuPage extends StatelessWidget {
 
 						Expanded(
 							flex: 25,
-							child: Center()
+							child: Center(
+								child: Builder(builder: (context) =>
+									RaisedButton(
+										child: Text('Sign out'),
+										color: Colors.red,
+										onPressed: () {
+											AuthService.instance.signOut().then((error) {
+												if (error != null) {
+													var snackBar = SnackBar(
+														content: Text('There was an error, try again. [${error.toString()}]'), //TODO: remove error info
+														behavior: SnackBarBehavior.floating,
+													);
+													Scaffold.of(context).showSnackBar(snackBar);
+
+												} else {
+													Navigator.pushNamedAndRemoveUntil(context, '/auth', (Route<dynamic> route) => false);
+												}
+											});
+										}
+									),
+								),
+							),
 						),
 
 					],

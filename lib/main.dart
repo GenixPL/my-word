@@ -5,7 +5,12 @@ import 'package:provider/provider.dart';
 import 'package:my_word/auth.dart';
 
 
-void main() => runApp(MyApp());
+void main() async {
+	await AuthService.instance.checkUserExists();
+
+	runApp(MyApp());
+}
+
 
 class MyApp extends StatelessWidget {
 
@@ -18,7 +23,7 @@ class MyApp extends StatelessWidget {
 		  	theme: ThemeData.dark(),
 		  ),
 			providers: [
-				ChangeNotifierProvider<AuthService>.value(value: authService),
+				ChangeNotifierProvider<AuthService>.value(value: AuthService.instance),
 			],
 		);
 	}

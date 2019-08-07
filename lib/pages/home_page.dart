@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-
+import 'package:my_word/auth.dart';
 import 'package:my_word/main_drawer.dart';
 
 
 class HomePage extends StatelessWidget {
-
 
 	@override
 	Widget build(BuildContext context) {
