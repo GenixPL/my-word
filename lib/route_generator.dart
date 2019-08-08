@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_word/auth.dart';
+import 'package:my_word/auth_service.dart';
 import 'package:my_word/pages/account/account_menu_page.dart';
 import 'package:my_word/pages/auth/auth_email_password_page.dart';
 import 'package:my_word/pages/auth/auth_menu_page.dart';

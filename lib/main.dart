@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:my_word/route_generator.dart';
 import 'package:provider/provider.dart';
-import 'package:my_word/auth.dart';
+import 'package:my_word/auth_service.dart';
 
 
 void main() async {

@@ -12,8 +12,21 @@ class User {
 	String get email => _email;
 
 
-	User(FirebaseUser firebaseUser) {
-		_id = firebaseUser.uid;
-		_email = firebaseUser.email;
+	User(this._id, this._email);
+
+	static User fromMap(Map<String, dynamic> map) {
+		var id = map['id'] ?? (throw ArgumentError("id is required"));
+		var email = map['email'] ?? (throw ArgumentError("email is required"));
+
+		return User(id, email);
+	}
+
+	Map<String, dynamic> toMap() {
+		var map = Map<String, dynamic>();
+
+		map['id'] = id;
+		map['email'] = email;
+
+		return map;
 	}
 }

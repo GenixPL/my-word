@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_word/auth.dart';
+import 'package:my_word/auth_service.dart';
 
 
 class AuthEmailPasswordPage extends StatefulWidget {
@@ -57,6 +57,8 @@ class _AuthEmailPasswordPageState extends State<AuthEmailPasswordPage> {
 										RaisedButton(
 											child: Text('Sign Up'),
 											onPressed: () {
+												FocusScope.of(context).requestFocus(new FocusNode());
+
 												AuthService.instance.signUpEmailPassword(_email, _password).then((error) {
 													if (error == null) {
 														Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false);
@@ -81,6 +83,8 @@ class _AuthEmailPasswordPageState extends State<AuthEmailPasswordPage> {
 											RaisedButton(
 												child: Text('Sign In'),
 												onPressed: () {
+													FocusScope.of(context).requestFocus(new FocusNode());
+													
 													AuthService.instance.signInEmailPassword(_email, _password).then((error) {
 														if (error == null) {
 															Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false);

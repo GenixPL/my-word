@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_word/auth_service.dart';
+import 'package:my_word/db/users_db.dart';
 import 'package:my_word/main_drawer.dart';
 
 
@@ -13,7 +15,16 @@ class HomePage extends StatelessWidget {
 				child: Column(
 					mainAxisAlignment: MainAxisAlignment.center,
 					children: <Widget>[
+
 						Text('HOME'),
+
+						RaisedButton(
+							onPressed: () {
+								var user = AuthService.instance.user;
+								print('${user.email} + ${user.id}');
+							}
+						),
+
 					]
 				)
 			)

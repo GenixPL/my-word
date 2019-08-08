@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_word/auth.dart';
+import 'package:my_word/auth_service.dart';
 
 
 class AccountMenuPage extends StatelessWidget {
