@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 
 class MainDrawer extends StatelessWidget {
 
+	//TODO: disable click of current page
+
 	@override
 	Widget build(BuildContext context) {
 		var auth = Provider.of<AuthService>(context);
@@ -45,6 +47,24 @@ class MainDrawer extends StatelessWidget {
 						onTap: () {
 							Navigator.pop(context); //hides menu
 							Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false);
+						},
+					),
+
+					GestureDetector(
+						child: Row(
+							mainAxisAlignment: MainAxisAlignment.start,
+							mainAxisSize: MainAxisSize.max,
+							children: <Widget>[
+								Padding(
+									padding: const EdgeInsets.all(12.0),
+									child: Icon(Icons.view_headline),
+								),
+								Expanded(child: Text('Sets')),
+							],
+						),
+						onTap: () {
+							Navigator.pop(context); //hides menu
+							Navigator.pushNamed(context, '/sets');
 						},
 					),
 

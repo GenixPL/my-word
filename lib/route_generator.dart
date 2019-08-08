@@ -4,6 +4,7 @@ import 'package:my_word/pages/account/account_menu_page.dart';
 import 'package:my_word/pages/auth/auth_email_password_page.dart';
 import 'package:my_word/pages/auth/auth_menu_page.dart';
 import 'package:my_word/pages/home_page.dart';
+import 'package:my_word/pages/sets/SetsMenuPage.dart';
 
 
 class RouteGenerator {
@@ -27,6 +28,9 @@ class RouteGenerator {
 
 			case '/account':
 				return MaterialPageRoute(builder: (_) => AccountMenuPage());
+
+			case '/sets':
+				return MaterialPageRoute(builder: (_) => SetsPage());
 
 			default:
 				return _errorRoute();
