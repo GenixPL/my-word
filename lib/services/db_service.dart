@@ -3,11 +3,22 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:my_word/models/user.dart';
 
 
-class UsersDB {
+class DBService {
 
-	final _TAG = 'UsersDB';
+	//singleton stuff
+	static final DBService _instance = DBService._init();
+
+	static DBService get instance => _instance;
+
+	DBService._init();
+
+
+
+
+	static const _TAG = 'DBService';
 
 	final _usersCollection = Firestore.instance.collection('users');
+	final _privateSetsCollection = Firestore.instance.collection('private-sets');
 
 
 	Future<Exception> createUserDoc(FirebaseUser firebaseUser) async {

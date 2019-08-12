@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:my_word/auth_service.dart';
+import 'package:my_word/services/auth_service.dart';
 import 'package:my_word/pages/account/account_menu_page.dart';
 import 'package:my_word/pages/auth/auth_email_password_page.dart';
 import 'package:my_word/pages/auth/auth_menu_page.dart';
 import 'package:my_word/pages/home_page.dart';
-import 'package:my_word/pages/sets/SetsMenuPage.dart';
+import 'package:my_word/pages/sets/sets_menu_page.dart';
 
 
 class RouteGenerator {

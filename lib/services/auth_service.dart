@@ -1,10 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
-import 'package:my_word/db/users_db.dart';
+import 'package:my_word/services/db_service.dart';
 import 'package:my_word/models/user.dart';
 
 
 class AuthService with ChangeNotifier {
+
+	//singleton stuff
+	static final AuthService _instance = AuthService._init();
+
+	static AuthService get instance => _instance;
+
+	AuthService._init();
+
+
 
 	static const _TAG = 'AuthService';
 
@@ -19,20 +28,12 @@ class AuthService with ChangeNotifier {
 	User get user => _user;
 
 
-	//singleton stuff
-	static final AuthService _instance = AuthService._init();
-
-	static AuthService get instance => _instance;
-
-	AuthService._init();
-
-
 	Future<User> checkUserExists() async {
 		try {
 			var firebaseUser = await _auth.currentUser();
 
 			if (firebaseUser != null) {
-				var userDoc = await UsersDB().getUserDoc(firebaseUser.uid);
+				var userDoc = await DBService.instance.getUserDoc(firebaseUser.uid);
 
 				_user = User.fromMap(userDoc);
 				_isSigned = true;
@@ -56,7 +57,7 @@ class AuthService with ChangeNotifier {
 			}
 
 			var authResult = await _auth.signInWithEmailAndPassword(email: email, password: password);
-			var userDoc = await UsersDB().getUserDoc(authResult.user.uid);
+			var userDoc = await DBService.instance.getUserDoc(authResult.user.uid);
 
 			_user = User.fromMap(userDoc);
 			_isSigned = true;
@@ -74,8 +75,8 @@ class AuthService with ChangeNotifier {
 		try {
 			var authResult = await _auth.createUserWithEmailAndPassword(email: email, password: password);
 
-			await UsersDB().createUserDoc(authResult.user);
-			var userDoc = await UsersDB().getUserDoc(authResult.user.uid);
+			await DBService.instance.createUserDoc(authResult.user);
+			var userDoc = await DBService.instance.getUserDoc(authResult.user.uid);
 
 			_user = User.fromMap(userDoc);
 			_isSigned = true;

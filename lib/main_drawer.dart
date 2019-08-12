@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_word/auth_service.dart';
+import 'package:my_word/services/auth_service.dart';
 import 'package:provider/provider.dart';
 
 
