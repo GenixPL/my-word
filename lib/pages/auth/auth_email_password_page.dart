@@ -9,11 +9,11 @@ class AuthEmailPasswordPage extends StatefulWidget {
 
 
 class _AuthEmailPasswordPageState extends State<AuthEmailPasswordPage> {
-
+	
 	String _email = 'example@example.com';
 	String _password = '123456';
-
-
+	
+	
 	@override
 	Widget build(BuildContext context) {
 		return Scaffold(
@@ -21,7 +21,7 @@ class _AuthEmailPasswordPageState extends State<AuthEmailPasswordPage> {
 				child: Column(
 					mainAxisAlignment: MainAxisAlignment.center,
 					children: <Widget>[
-
+						
 						Padding(
 							padding: EdgeInsets.all(8.0),
 							child: TextField(
@@ -33,7 +33,7 @@ class _AuthEmailPasswordPageState extends State<AuthEmailPasswordPage> {
 								},
 							)
 						),
-
+						
 						Padding(
 							padding: EdgeInsets.all(8.0),
 							child: TextField(
@@ -46,11 +46,11 @@ class _AuthEmailPasswordPageState extends State<AuthEmailPasswordPage> {
 								},
 							)
 						),
-
+						
 						Row(
 							mainAxisAlignment: MainAxisAlignment.center,
 							children: <Widget>[
-
+								
 								Padding(
 									padding: EdgeInsets.all(8.0),
 									child: Builder(builder: (context) =>
@@ -58,24 +58,23 @@ class _AuthEmailPasswordPageState extends State<AuthEmailPasswordPage> {
 											child: Text('Sign Up'),
 											onPressed: () {
 												FocusScope.of(context).requestFocus(new FocusNode());
-
-												AuthService.instance.signUpEmailPassword(_email, _password).then((error) {
-													if (error == null) {
-														Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false);
-
-													} else {
-														var snackBar = SnackBar(
-															content: Text('There was an error, try again. [${error.toString()}]'), //TODO: remove error info
+												
+												AuthService.instance.signUpEmailPassword(_email, _password)
+													.then((error) {
+													Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false);
+												}).catchError((e) {
+													Scaffold.of(context).showSnackBar(
+														SnackBar(
+															content: Text('There was an error, try again. [${e.toString()}]'), //TODO: remove error info
 															behavior: SnackBarBehavior.floating,
-														);
-														Scaffold.of(context).showSnackBar(snackBar);
-													}
+														)
+													);
 												});
 											}
 										),
 									),
 								),
-
+								
 								Padding(
 									padding: EdgeInsets.all(8.0),
 									child: Builder(
@@ -85,23 +84,22 @@ class _AuthEmailPasswordPageState extends State<AuthEmailPasswordPage> {
 												onPressed: () {
 													FocusScope.of(context).requestFocus(new FocusNode());
 													
-													AuthService.instance.signInEmailPassword(_email, _password).then((error) {
-														if (error == null) {
-															Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false);
-
-														} else {
-															var snackBar = SnackBar(
-																content: Text('There was an error, try again. [${error.toString()}]'), //TODO: remove error info
+													AuthService.instance.signInEmailPassword(_email, _password)
+														.then((error) {
+														Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false);
+													}).catchError((e) {
+														Scaffold.of(context).showSnackBar(
+															SnackBar(
+																content: Text('There was an error, try again. [${e.toString()}]'), //TODO: remove error info
 																behavior: SnackBarBehavior.floating,
-															);
-															Scaffold.of(context).showSnackBar(snackBar);
-														}
+															)
+														);
 													});
 												}
 											)
 									),
 								),
-
+							
 							],
 						),
 					]

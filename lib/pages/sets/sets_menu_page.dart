@@ -35,7 +35,8 @@ class SetsPage extends StatelessWidget {
 								    color: Colors.white,
 							    ),
 						    ),
-						    onPressed: () {
+						    onPressed: () async {
+//									await AuthService.instance.user.addSet('setname', 'en', 'g');
 							    showDialog(
 								    context: context,
 								    builder: (context) => CreateSetDialog(),

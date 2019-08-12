@@ -12,7 +12,7 @@ class SetInfo {
 
 	SetInfo(this.name, this.lang1, this.lang2, this.id);
 
-	static SetInfo fromMap(Map<String, dynamic> map) {
+	static SetInfo fromMap(Map<dynamic, dynamic> map) {
 		var name = map['name'] ?? (throw ArgumentError("set_name is required"));
 		var lang1 = map['lang1'] ?? (throw ArgumentError("set_lang1 is required"));
 		var lang2 = map['lang2'] ?? (throw ArgumentError("set_lang2 is required"));

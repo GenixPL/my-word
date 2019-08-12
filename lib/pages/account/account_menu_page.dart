@@ -9,7 +9,7 @@ class AccountMenuPage extends StatelessWidget {
 			body: Center(
 				child: Column(
 					children: <Widget>[
-
+						
 						Expanded(
 							flex: 25,
 							child: Center(
@@ -24,29 +24,29 @@ class AccountMenuPage extends StatelessWidget {
 								),
 							)
 						),
-
+						
 						Expanded(
 							flex: 50,
 							child: Column(
-									mainAxisAlignment: MainAxisAlignment.center,
-									children: <Widget>[
-
-										RaisedButton(
-											child: Text('Settings'),
-											onPressed: null
-										),
-
-										RaisedButton(
-											child: Text('Switch accounts'),
-											onPressed: () {
-												Navigator.pushNamed(context, '/auth');
-											}
-										),
-
-									],
+								mainAxisAlignment: MainAxisAlignment.center,
+								children: <Widget>[
+									
+									RaisedButton(
+										child: Text('Settings'),
+										onPressed: null
+									),
+									
+									RaisedButton(
+										child: Text('Switch accounts'),
+										onPressed: () {
+											Navigator.pushNamed(context, '/auth');
+										}
+									),
+								
+								],
 							)
 						),
-
+						
 						Expanded(
 							flex: 25,
 							child: Center(
@@ -55,28 +55,27 @@ class AccountMenuPage extends StatelessWidget {
 										child: Text('Sign out'),
 										color: Colors.red,
 										onPressed: () {
-											AuthService.instance.signOut().then((error) {
-												if (error != null) {
-													var snackBar = SnackBar(
-														content: Text('There was an error, try again. [${error.toString()}]'), //TODO: remove error info
+											AuthService.instance.signOut()
+												.then((v) {
+												Navigator.pushNamedAndRemoveUntil(context, '/auth', (Route<dynamic> route) => false);
+											}).catchError((e) {
+												Scaffold.of(context).showSnackBar(
+													SnackBar(
+														content: Text('There was an error, try again. [${e.toString()}]'), //TODO: remove error info
 														behavior: SnackBarBehavior.floating,
-													);
-													Scaffold.of(context).showSnackBar(snackBar);
-
-												} else {
-													Navigator.pushNamedAndRemoveUntil(context, '/auth', (Route<dynamic> route) => false);
-												}
+													)
+												);
 											});
 										}
 									),
 								),
 							),
 						),
-
+					
 					],
 				),
 			),
 		);
 	}
-
+	
 }
