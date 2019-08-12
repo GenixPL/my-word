@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:my_word/main_drawer.dart';
-import 'package:my_word/pages/sets/create_set_dialog.dart';
+import 'package:my_word/pages/sets/create_set_page.dart';
 
 
 class SetsPage extends StatelessWidget {
-
+	
 	@override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,6 +13,7 @@ class SetsPage extends StatelessWidget {
 		    centerTitle: true,
 	    ),
 	    drawer: MainDrawer(),
+	    resizeToAvoidBottomInset: false,
 	    body: Center(
 		    child: Column(
 			    children: <Widget>[
@@ -36,11 +37,7 @@ class SetsPage extends StatelessWidget {
 							    ),
 						    ),
 						    onPressed: () async {
-//									await AuthService.instance.user.addSet('setname', 'en', 'g');
-							    showDialog(
-								    context: context,
-								    builder: (context) => CreateSetDialog(),
-							    );
+						    	Navigator.of(context).pushNamed('/sets/create');
 						    }
 					    ),
 

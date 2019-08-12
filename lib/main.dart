@@ -20,7 +20,16 @@ class MyApp extends StatelessWidget {
 		  child: MaterialApp(
 		  	initialRoute: '/',
 		  	onGenerateRoute: RouteGenerator.generateRoute,
-		  	theme: ThemeData.dark(),
+		  	theme: ThemeData(
+				  brightness: Brightness.dark,
+				  inputDecorationTheme: InputDecorationTheme(
+					  focusedBorder: UnderlineInputBorder(
+						  borderSide: BorderSide(
+							  color: Colors.white
+						  )
+					  )
+				  )
+			  ),
 		  ),
 			providers: [
 				ChangeNotifierProvider<AuthService>.value(value: AuthService.instance),
