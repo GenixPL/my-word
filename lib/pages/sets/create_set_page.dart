@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:language_pickers/language.dart';
 import 'package:language_pickers/language_picker_dialog.dart';
 import 'package:language_pickers/utils/utils.dart';
+import 'package:my_word/services/auth_service.dart';
 
 
 class CreateSetPage extends StatefulWidget {
@@ -12,9 +13,11 @@ class CreateSetPage extends StatefulWidget {
 
 class _CreateSetPageState extends State<CreateSetPage> {
 	
-	String _setName;
+	final _setNameController = TextEditingController();
 	Language _lang1 = LanguagePickerUtils.getLanguageByIsoCode('en');
 	Language _lang2 = LanguagePickerUtils.getLanguageByIsoCode('de');
+	
+	bool _isNameValid = false;
 	
 	
 	@override
@@ -37,17 +40,16 @@ class _CreateSetPageState extends State<CreateSetPage> {
 								
 								Padding(
 									padding: EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 32.0),
-									child: TextFormField( //TODO: correct it
+									child: TextField(
 										style: TextStyle(
 											fontSize: 16.0,
 											fontWeight: FontWeight.w400,
 										),
+										controller: _setNameController,
 										decoration: InputDecoration(
 											hintText: 'Set Name',
+											errorText: _isNameValid ? null : 'Set name can\'t be empty.',
 										),
-										validator: (value) {
-											return value.isEmpty ? 'Set name can\'t be empty.' : null;
-										},
 									)
 								),
 								
@@ -116,10 +118,34 @@ class _CreateSetPageState extends State<CreateSetPage> {
 								
 								Padding(
 									padding: const EdgeInsets.all(8.0),
-									child: RaisedButton(
-										child: Text('Create'),
-										color: Colors.green,
-										onPressed: () {}
+									child: Builder(builder: (context) =>
+										RaisedButton(
+											child: Text('Create'), //TODO: make this ad cancel more visible
+											color: Colors.green,
+											onPressed: () {
+												setState(() {
+													//TODO: remove beginning and ending white spaces
+													//TODO: check if it has at least one char
+													_setNameController.text.isEmpty ? _isNameValid = false : _isNameValid = true;
+												});
+												
+												if (_isNameValid) {
+													print('${_setNameController.text} + ${_lang1.isoCode.toUpperCase()} + ${_lang2.isoCode}');
+													AuthService.instance.user.addSet(_setNameController.text, _lang1.isoCode.toUpperCase(), _lang2.isoCode.toUpperCase())
+														.then((v) {
+														Navigator.of(context).pop();
+													})
+														.catchError((e) {
+														Scaffold.of(context).showSnackBar(
+															SnackBar(
+																content: Text('There was an error, try again. [${e.toString()}]'), //TODO: remove error info
+																behavior: SnackBarBehavior.floating,
+															)
+														);
+													});
+												}
+											}
+										)
 									),
 								),
 							
