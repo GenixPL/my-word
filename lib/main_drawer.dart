@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:my_word/services/auth_service.dart';
 import 'package:provider/provider.dart';
+import 'package:my_word/route_generator.dart';
 
 
 class MainDrawer extends StatelessWidget {
-
-	//TODO: disable click of current page
 
 	@override
 	Widget build(BuildContext context) {
@@ -39,12 +38,20 @@ class MainDrawer extends StatelessWidget {
 							children: <Widget>[
 								Padding(
 									padding: const EdgeInsets.all(12.0),
-									child: Icon(Icons.home),
+									child: Icon(
+										Icons.home,
+										color: RouteGenerator.lastRoute == '/' ? Colors.grey : Colors.white,
+									),
 								),
-								Expanded(child: Text('Home')),
+								Expanded(child: Text(
+									'Home',
+									style: TextStyle(
+										color: RouteGenerator.lastRoute == '/' ? Colors.grey : Colors.white,
+									),
+								)),
 							],
 						),
-						onTap: () {
+						onTap: RouteGenerator.lastRoute == '/' ? () { Navigator.pop(context); } : () {
 							Navigator.pop(context); //hides menu
 							Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false);
 						},
@@ -57,12 +64,20 @@ class MainDrawer extends StatelessWidget {
 							children: <Widget>[
 								Padding(
 									padding: const EdgeInsets.all(12.0),
-									child: Icon(Icons.view_headline),
+									child: Icon(
+										Icons.view_headline,
+										color: RouteGenerator.lastRoute == '/sets' ? Colors.grey : Colors.white,
+									),
 								),
-								Expanded(child: Text('Sets')),
+								Expanded(child: Text(
+									'Sets',
+									style: TextStyle(
+										color: RouteGenerator.lastRoute == '/sets' ? Colors.grey : Colors.white,
+									),
+								)),
 							],
 						),
-						onTap: () {
+						onTap: RouteGenerator.lastRoute == '/sets' ? () { Navigator.pop(context); } : () {
 							Navigator.pop(context); //hides menu
 							Navigator.pushNamed(context, '/sets');
 						},

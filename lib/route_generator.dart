@@ -10,12 +10,18 @@ import 'package:my_word/services/auth_service.dart';
 
 class RouteGenerator {
 	
+	static String _lastRoute;
+	
+	static get lastRoute => _lastRoute;
+	
 	static Route<dynamic> generateRoute(RouteSettings settings) {
 		final args = settings.arguments;
 		
 		if (!AuthService.instance.isSigned && !settings.name.contains('/auth')) {
 			return MaterialPageRoute(builder: (_) => AuthMenuPage());
 		}
+		
+		_lastRoute = settings.name;
 		
 		switch (settings.name) {
 			case '/':

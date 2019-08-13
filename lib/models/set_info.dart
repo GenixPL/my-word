@@ -2,10 +2,10 @@
 
 class SetInfo {
 
-	//TODO: it may need positionToRender Key
+	//TODO: it may need positionToRender key
 
 	String name;
-	String lang1; //TODO: change it to Language class with list of available languages
+	String lang1;
 	String lang2;
 	String id;
 

@@ -17,7 +17,7 @@ class _CreateSetPageState extends State<CreateSetPage> {
 	Language _lang1 = LanguagePickerUtils.getLanguageByIsoCode('en');
 	Language _lang2 = LanguagePickerUtils.getLanguageByIsoCode('de');
 	
-	bool _isNameValid = false;
+	bool _isNameValid = true;
 	
 	
 	@override
@@ -108,6 +108,9 @@ class _CreateSetPageState extends State<CreateSetPage> {
 									child: RaisedButton(
 										child: Text(
 											'Cancel',
+											style: TextStyle(
+												fontWeight: FontWeight.w600
+											),
 										),
 										color: Colors.red,
 										onPressed: () {
@@ -120,17 +123,20 @@ class _CreateSetPageState extends State<CreateSetPage> {
 									padding: const EdgeInsets.all(8.0),
 									child: Builder(builder: (context) =>
 										RaisedButton(
-											child: Text('Create'), //TODO: make this ad cancel more visible
+											child: Text(
+												'Create',
+												style: TextStyle(
+													fontWeight: FontWeight.w600
+												),
+											),
 											color: Colors.green,
 											onPressed: () {
 												setState(() {
-													//TODO: remove beginning and ending white spaces
-													//TODO: check if it has at least one char
+													_setNameController.text = _setNameController.text.trim();
 													_setNameController.text.isEmpty ? _isNameValid = false : _isNameValid = true;
 												});
 												
 												if (_isNameValid) {
-													print('${_setNameController.text} + ${_lang1.isoCode.toUpperCase()} + ${_lang2.isoCode}');
 													AuthService.instance.user.addSet(_setNameController.text, _lang1.isoCode.toUpperCase(), _lang2.isoCode.toUpperCase())
 														.then((v) {
 														Navigator.of(context).pop();
