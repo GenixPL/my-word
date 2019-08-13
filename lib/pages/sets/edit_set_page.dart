@@ -72,101 +72,111 @@ class _EditSetPageState extends State<EditSetPage> {
 	
 	Widget _languages(BuildContext context) {
 		return Padding(
-		  padding: const EdgeInsets.all(8.0),
-		  child: Row(
-		  	children: <Widget>[
-		  		
-		  		Expanded(
-		  			flex: 50,
-		  			child: GestureDetector(
-		  				child: Text(
-		  					'${_set.lang1}',
-		  					textAlign: TextAlign.center,
-		  					style: TextStyle(
-		  						fontSize: 20.0,
-		  						fontWeight: FontWeight.w600,
-		  					),
-		  				),
-		  				onTap: () {
-		  					_openFirstDialog();
-		  				},
-		  			),
-		  		),
-		  		
-		  		Expanded(
-		  			flex: 50,
-		  			child: GestureDetector(
-		  				child: Text(
-		  					'${_set.lang2}',
-		  					textAlign: TextAlign.center,
-		  					style: TextStyle(
-		  						fontSize: 20.0,
-		  						fontWeight: FontWeight.w600,
-		  					),
-		  				),
-		  				onTap: () {
-		  					_openSecondDialog();
-		  				},
-		  			),
-		  		)
-		  	
-		  	]
-		  ),
+			padding: const EdgeInsets.all(8.0),
+			child: Row(
+				children: <Widget>[
+					
+					Expanded(
+						flex: 50,
+						child: GestureDetector(
+							child: Text(
+								'${_set.lang1}',
+								textAlign: TextAlign.center,
+								style: TextStyle(
+									fontSize: 20.0,
+									fontWeight: FontWeight.w600,
+								),
+							),
+							onTap: () {
+								_openFirstDialog();
+							},
+						),
+					),
+					
+					Expanded(
+						flex: 50,
+						child: GestureDetector(
+							child: Text(
+								'${_set.lang2}',
+								textAlign: TextAlign.center,
+								style: TextStyle(
+									fontSize: 20.0,
+									fontWeight: FontWeight.w600,
+								),
+							),
+							onTap: () {
+								_openSecondDialog();
+							},
+						),
+					)
+				
+				]
+			),
 		);
 	}
 	
 	Widget _pairs(BuildContext context) {
 		return Expanded(
-			flex: 80,
-			child: Container(
-				color: Colors.amberAccent,
-			),
-		);
+			child: Padding(
+				padding: EdgeInsets.all(8.0),
+				child: Container(color: Colors.amberAccent,),
+		), );
 	}
 	
 	Widget _bottom(BuildContext context) {
 		return Row(
-			mainAxisAlignment: MainAxisAlignment.center,
+			mainAxisAlignment: MainAxisAlignment.spaceAround,
 			children: <Widget>[
 				
-				Align(
-					alignment: Alignment.bottomCenter,
-					child: Padding(
-						padding: const EdgeInsets.all(8.0),
-						child: RaisedButton(
-							child: Text(
-								'Add pair',
-								style: TextStyle(
-									fontWeight: FontWeight.w600
-								),
+				Padding(
+					padding: const EdgeInsets.all(8.0),
+					child: RaisedButton(
+						color: Colors.red,
+						child: Text(
+							'Remove',
+							style: TextStyle(
+								fontWeight: FontWeight.w600
 							),
-							onPressed: () {
-								print('add');
-							}
 						),
+						onPressed: () {
+							print('remove');
+							//TODO: ask if for sure
+						}
 					),
 				),
 				
-				Align(
-					alignment: Alignment.bottomCenter,
-					child: Padding(
-						padding: const EdgeInsets.all(8.0),
-						child: RaisedButton(
-							color: Colors.green,
-							child: Text(
-								'Save',
-								style: TextStyle(
-									fontWeight: FontWeight.w600
-								),
+				Padding(
+					padding: const EdgeInsets.all(8.0),
+					child: RaisedButton(
+						child: Text(
+							'Add Pair',
+							style: TextStyle(
+								fontWeight: FontWeight.w600
 							),
-							onPressed: () {
-								print('save');
-								_validateName();
-//								_set.addWordPair('jeden', 'dwa');
-//								_set.addWordPair('jeden', 'dwa');
-								print(_set.toMap());
-							}
 						),
+						onPressed: () {
+							print('add');
+						}
+					),
+				),
+				
+				Padding(
+					padding: const EdgeInsets.all(8.0),
+					child: RaisedButton(
+						color: Colors.green,
+						child: Text(
+							'Save',
+							style: TextStyle(
+								fontWeight: FontWeight.w600
+							),
+						),
+						onPressed: () {
+							print('save');
+							_validateName();
+//								_set.addWordPair('jeden', 'dwa');
+//								_set.addWordPair('jeden', 'dwa');
+							print(_set.toMap());
+						}
 					),
 				),
 			
