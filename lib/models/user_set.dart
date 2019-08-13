@@ -14,6 +14,8 @@ class UserSet {
 	
 	String get lang2 => _setInfo.lang2;
 	
+	List<WordPair> get wordPairs => _wordPairs;
+	
 	
 	set name(String name) {
 		_setInfo.name = name;
@@ -58,6 +60,6 @@ class UserSet {
 	}
 	
 	addWordPair(String word1, String word2) {
-		_wordPairs.add(WordPair(word1, word2));
+		_wordPairs.add(WordPair.createNew(word1, word2));
 	}
 }

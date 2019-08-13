@@ -117,10 +117,20 @@ class _EditSetPageState extends State<EditSetPage> {
 	
 	Widget _pairs(BuildContext context) {
 		return Expanded(
-			child: Padding(
-				padding: EdgeInsets.all(8.0),
-				child: Container(color: Colors.amberAccent,),
-		), );
+			child: ListView.separated(
+				itemCount: _set.wordPairs.length,
+				itemBuilder: (context, i) =>
+					ListTile(
+						title: Text(
+							'${_set.wordPairs[i].word1} ${_set.wordPairs[i].word2}',
+						),
+						onTap: () {
+							print('change pair');
+						},
+					),
+				separatorBuilder: (context, i) => Divider(),
+			),
+		);
 	}
 	
 	Widget _bottom(BuildContext context) {
@@ -173,8 +183,7 @@ class _EditSetPageState extends State<EditSetPage> {
 						onPressed: () {
 							print('save');
 							_validateName();
-//								_set.addWordPair('jeden', 'dwa');
-//								_set.addWordPair('jeden', 'dwa');
+							_set.addWordPair('jeden', 'dwa'); //TODO: remove
 							print(_set.toMap());
 						}
 					),
