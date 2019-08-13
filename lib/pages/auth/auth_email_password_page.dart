@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_word/services/auth_service.dart';
+import 'package:my_word/show_info.dart';
 
 
 class AuthEmailPasswordPage extends StatefulWidget {
@@ -63,12 +64,7 @@ class _AuthEmailPasswordPageState extends State<AuthEmailPasswordPage> {
 													.then((error) {
 													Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false);
 												}).catchError((e) {
-													Scaffold.of(context).showSnackBar(
-														SnackBar(
-															content: Text('There was an error, try again. [${e.toString()}]'), //TODO: remove error info
-															behavior: SnackBarBehavior.floating,
-														)
-													);
+													ShowInfo.error(context, '', e);
 												});
 											}
 										),
@@ -88,12 +84,7 @@ class _AuthEmailPasswordPageState extends State<AuthEmailPasswordPage> {
 														.then((error) {
 														Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false);
 													}).catchError((e) {
-														Scaffold.of(context).showSnackBar(
-															SnackBar(
-																content: Text('There was an error, try again. [${e.toString()}]'), //TODO: remove error info
-																behavior: SnackBarBehavior.floating,
-															)
-														);
+														ShowInfo.error(context, '', e);
 													});
 												}
 											)

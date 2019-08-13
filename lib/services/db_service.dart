@@ -57,6 +57,7 @@ class DBService {
 		}
 		
 		print('$_TAG: getUserDoc: success');
+		
 		return docSnap.data;
 	}
 	
@@ -91,6 +92,20 @@ class DBService {
 		}
 		
 		print('$_TAG: createSetDoc: success');
+	}
+	
+	Future<Map<String, dynamic>> getSetDoc(String setID) async {
+		var docSnap;
+		try {
+			docSnap = await _privateSetsCollection.document(setID).get();
+		} catch (e) {
+			print('$_TAG: getSetDoc: failure, error: ${e.toString()}');
+			throw e;
+		}
+		
+		print('$_TAG: getSetDoc: success');
+		
+		return docSnap.data;
 	}
 	
 }

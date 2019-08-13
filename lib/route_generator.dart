@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:my_word/models/user_set.dart';
 import 'package:my_word/pages/account/account_menu_page.dart';
 import 'package:my_word/pages/auth/auth_email_password_page.dart';
 import 'package:my_word/pages/auth/auth_menu_page.dart';
 import 'package:my_word/pages/home_page.dart';
 import 'package:my_word/pages/sets/create_set_page.dart';
+import 'package:my_word/pages/sets/edit_set_page.dart';
 import 'package:my_word/pages/sets/sets_menu_page.dart';
 import 'package:my_word/services/auth_service.dart';
 
@@ -42,19 +44,33 @@ class RouteGenerator {
 			case '/sets/create':
 				return MaterialPageRoute(builder: (_) => CreateSetPage());
 			
+			case '/sets/edit':
+				return _editSetPageRoute(args);
+			
 			default:
-				return _errorRoute();
+				return _errorRoute('No path specified.');
 		}
 	}
 	
-	static Route<dynamic> _errorRoute() {
+	static Route<dynamic> _errorRoute(String msg) {
 		return MaterialPageRoute(builder: (_) {
 			return Scaffold(
 				body: Center(
-					child: Text('ERROR ROUTE'),
+					child: Text('ERROR ROUTE \n $msg'),
 				),
 			);
 		});
 	}
 	
+	static Route<dynamic> _editSetPageRoute(Object args) {
+		if (args == null) {
+			return _errorRoute('No arguments specified.');
+		}
+		
+		if (args is! UserSet) {
+			return _errorRoute('Sepcified arguments are of bad type.');
+		}
+		
+		return MaterialPageRoute(builder: (_) => EditSetPage(args));
+	}
 }

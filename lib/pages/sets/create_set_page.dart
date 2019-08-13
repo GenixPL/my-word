@@ -3,6 +3,7 @@ import 'package:language_pickers/language.dart';
 import 'package:language_pickers/language_picker_dialog.dart';
 import 'package:language_pickers/utils/utils.dart';
 import 'package:my_word/services/auth_service.dart';
+import 'package:my_word/show_info.dart';
 
 
 class CreateSetPage extends StatefulWidget {
@@ -142,12 +143,7 @@ class _CreateSetPageState extends State<CreateSetPage> {
 														Navigator.of(context).pop();
 													})
 														.catchError((e) {
-														Scaffold.of(context).showSnackBar(
-															SnackBar(
-																content: Text('There was an error, try again. [${e.toString()}]'), //TODO: remove error info
-																behavior: SnackBarBehavior.floating,
-															)
-														);
+															ShowInfo.error(context, '', e);
 													});
 												}
 											}
