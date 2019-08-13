@@ -125,7 +125,7 @@ class _AddPairPageSate extends State<AddPairPage> {
 							
 							if (_isWord1Valid && _isWord2Valid) {
 								FocusScope.of(context).requestFocus(new FocusNode());
-								_set.wordPairs.add(WordPair.createNew(_word1Controller.text, _word2Controller.text));
+								_set.addWordPair(_word1Controller.text, _word2Controller.text);
 								Navigator.of(context).pop();
 							}
 						},

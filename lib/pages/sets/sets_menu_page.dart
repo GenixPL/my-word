@@ -59,29 +59,31 @@ class SetsPage extends StatelessWidget {
 		var auth = Provider.of<AuthService>(context);
 		var sets = auth.user.sets;
 		
-		return ListView.separated(
-			itemCount: sets.length,
-			itemBuilder: (context, i) =>
-				ListTile(
-					leading: Text(
-						'${sets[i].lang1} ${sets[i].lang2}',
-						style: TextStyle(
-							fontSize: 20.0,
-							fontWeight: FontWeight.w600,
-						),
-					),
-					title: Text(
-						'${sets[i].name}',
-					),
-					onTap: () {
-						DBService.instance.getSetDoc(sets[i].id).then((map) {
-							Navigator.of(context).pushNamed('/sets/edit', arguments: UserSet.fromMap(map));
-						}).catchError((e) {
-							ShowInfo.error(context, '', e);
-						});
-					},
-				),
-			separatorBuilder: (context, i) => Divider(),
+		return Scrollbar(
+		  child: ListView.separated(
+		  	itemCount: sets.length,
+		  	itemBuilder: (context, i) =>
+		  		ListTile(
+		  			leading: Text(
+		  				'${sets[i].lang1} ${sets[i].lang2}',
+		  				style: TextStyle(
+		  					fontSize: 20.0,
+		  					fontWeight: FontWeight.w600,
+		  				),
+		  			),
+		  			title: Text(
+		  				'${sets[i].name}',
+		  			),
+		  			onTap: () {
+		  				DBService.instance.getSetDoc(sets[i].id).then((map) {
+		  					Navigator.of(context).pushNamed('/sets/edit', arguments: UserSet.fromMap(map));
+		  				}).catchError((e) {
+		  					ShowInfo.error(context, '', e);
+		  				});
+		  			},
+		  		),
+		  	separatorBuilder: (context, i) => Divider(),
+		  ),
 		);
 	}
 	
