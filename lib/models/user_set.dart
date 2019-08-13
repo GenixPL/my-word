@@ -62,4 +62,8 @@ class UserSet {
 	addWordPair(String word1, String word2) {
 		_wordPairs.add(WordPair.createNew(word1, word2));
 	}
+	
+	removeWordPair(String wordPairID) {
+		_wordPairs.removeWhere((pair) => pair.id == wordPairID);
+	}
 }

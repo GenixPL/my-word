@@ -119,17 +119,30 @@ class _EditSetPageState extends State<EditSetPage> {
 		return Expanded(
 			child: ListView.separated(
 				itemCount: _set.wordPairs.length,
-				itemBuilder: (context, i) =>
-					ListTile(
-						title: Text(
-							'${_set.wordPairs[i].word1} ${_set.wordPairs[i].word2}',
-						),
-						onTap: () {
-							print('change pair');
-						},
-					),
+				itemBuilder: _buildListTile,
 				separatorBuilder: (context, i) => Divider(),
+				
 			),
+		);
+	}
+	
+	Widget _buildListTile(BuildContext context, int i) {
+		return Dismissible(
+			key: Key(_set.wordPairs[i].id),
+		  background: Container(color: Colors.grey,),
+		  child: ListTile(
+		  	title: Text(
+		  		'${_set.wordPairs[i].word1} ${_set.wordPairs[i].word2}',
+		  	),
+		  	onTap: () {
+		  		print('change pair');
+		  	},
+		  ),
+			onDismissed: (direction) {
+				setState(() {
+					_set.removeWordPair(_set.wordPairs[i].id);
+				});
+			},
 		);
 	}
 	
