@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:my_word/models/set_info.dart';
+import 'package:my_word/models/user_set.dart';
 import 'package:my_word/services/db_service.dart';
 
 
@@ -63,7 +64,6 @@ class User {
 			await DBService.instance.updateUserDoc(this);
 		} catch (e) {
 			print('$_TAG: addSet: failure (updateUserDoc), error: ${e.toString()}');
-			sets.remove(setInfo);
 			
 			throw e;
 		}
@@ -71,10 +71,31 @@ class User {
 		print('$_TAG: addSet: success');
 	}
 	
+	Future<void> updateSet(UserSet set) async {
+		_updateSetInfo(set.setInfo);
+		
+		try {
+			DBService.instance.updateUserDoc(this);
+		} catch (e) {
+			print('$_TAG: updateSet: failure (updateUserDoc), error: ${e.toString()}');
+		}
+		
+		try {
+			DBService.instance.updateSetDoc(set);
+		} catch (e) {
+			print('$_TAG: updateSet: failure (updateSetDoc), error: ${e.toString()}');
+		}
+		
+		print('$_TAG: updateSet: success');
+	}
 	
 	String _getNewSetID() {
 		return _id + '_' + DateTime.now().millisecondsSinceEpoch.toString();
 	}
 	
+	void _updateSetInfo(SetInfo info) {
+		_sets.removeWhere((set) => set.id == info.id);
+		_sets.add(info.copy());
+	}
 }
 

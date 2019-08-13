@@ -12,7 +12,7 @@ class WordPair {
 	
 	WordPair(this._id, this.word1, this.word2);
 	
-	static WordPair fromMap(Map<String, dynamic> map) {
+	static WordPair fromMap(Map<dynamic, dynamic> map) {
 		var id = map['id'] ?? (throw ArgumentError("id is required"));
 		var word1 = map['word1'] ?? (throw ArgumentError("word1 is required"));
 		var word2 = map['word2'] ?? (throw ArgumentError("word2 is required"));

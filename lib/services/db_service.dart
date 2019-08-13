@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:my_word/models/set_info.dart';
 import 'package:my_word/models/user.dart';
+import 'package:my_word/models/user_set.dart';
 
 
 class DBService {
@@ -108,4 +109,14 @@ class DBService {
 		return docSnap.data;
 	}
 	
+	Future<void> updateSetDoc(UserSet set) async {
+		try {
+			await _privateSetsCollection.document(set.id).setData(set.toMap(), merge: true);
+		} catch (e) {
+			print('$_TAG: updateSetDoc: failure, error: ${e.toString()}');
+			throw e;
+		}
+		
+		print('$_TAG: updateSetDoc: success');
+	}
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:my_word/models/user_set.dart';
-import 'package:my_word/models/word_pair.dart';
 
 
 class AddPairPage extends StatefulWidget {

@@ -4,7 +4,7 @@ import 'package:my_word/pages/account/account_menu_page.dart';
 import 'package:my_word/pages/auth/auth_email_password_page.dart';
 import 'package:my_word/pages/auth/auth_menu_page.dart';
 import 'package:my_word/pages/home_page.dart';
-import 'package:my_word/pages/sets/add_pair.dart';
+import 'package:my_word/pages/sets/add_pair_page.dart';
 import 'package:my_word/pages/sets/create_set_page.dart';
 import 'package:my_word/pages/sets/edit_set_page.dart';
 import 'package:my_word/pages/sets/sets_menu_page.dart';

@@ -75,7 +75,7 @@ class SetsPage extends StatelessWidget {
 		  				'${sets[i].name}',
 		  			),
 		  			onTap: () {
-		  				DBService.instance.getSetDoc(sets[i].id).then((map) {
+		  				DBService.instance.getSetDoc(sets[i].id).then((map) { //TODO: move that responsibility
 		  					Navigator.of(context).pushNamed('/sets/edit', arguments: UserSet.fromMap(map));
 		  				}).catchError((e) {
 		  					ShowInfo.error(context, '', e);

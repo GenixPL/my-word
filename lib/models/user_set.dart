@@ -7,6 +7,7 @@ class UserSet {
 	SetInfo _setInfo;
 	List<WordPair> _wordPairs;
 	
+	String get id => _setInfo.id;
 	
 	String get name => _setInfo.name;
 	
@@ -15,6 +16,8 @@ class UserSet {
 	String get lang2 => _setInfo.lang2;
 	
 	List<WordPair> get wordPairs => _wordPairs;
+	
+	SetInfo get setInfo => _setInfo;
 	
 	
 	set name(String name) {
@@ -32,20 +35,14 @@ class UserSet {
 	
 	UserSet(this._setInfo, this._wordPairs);
 	
-	static UserSet fromMap(Map<String, dynamic> map) {
-		print('fromMap: $map');
-		
+	static UserSet fromMap(Map<dynamic, dynamic> map) {
 		var setInfo = SetInfo.fromMap(map);
-		
-		print('fromMap: ${setInfo.toMap()}');
 		
 		var wordPairs = List<WordPair>();
 		if (map.containsKey('wordPairs')) {
 			var wordPairsList = map['wordPairs'] as List;
 			wordPairsList.forEach((pairMap) => wordPairs.add(WordPair.fromMap(pairMap)));
 		}
-		
-		print('fromMap: ${wordPairs.map((setInfo) => setInfo.toMap()).toList()}');
 		
 		return UserSet(setInfo, wordPairs);
 	}

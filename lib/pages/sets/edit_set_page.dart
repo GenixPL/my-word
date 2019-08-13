@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:language_pickers/language.dart';
 import 'package:language_pickers/language_picker_dialog.dart';
 import 'package:my_word/models/user_set.dart';
+import 'package:my_word/services/auth_service.dart';
+import 'package:my_word/show_info.dart';
 
 
 class EditSetPage extends StatefulWidget {
@@ -74,39 +76,44 @@ class _EditSetPageState extends State<EditSetPage> {
 		return Padding(
 			padding: const EdgeInsets.all(8.0),
 			child: Row(
+				mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 				children: <Widget>[
 					
 					Expanded(
-						flex: 50,
-						child: GestureDetector(
-							child: Text(
-								'${_set.lang1}',
-								textAlign: TextAlign.center,
-								style: TextStyle(
-									fontSize: 20.0,
-									fontWeight: FontWeight.w600,
+						child: Padding(
+							padding: const EdgeInsets.all(8.0),
+							child: GestureDetector(
+								child: Text(
+									'${_set.lang1}',
+									textAlign: TextAlign.center,
+									style: TextStyle(
+										fontSize: 20.0,
+										fontWeight: FontWeight.w600,
+									),
 								),
+								onTap: () {
+									_openFirstDialog();
+								},
 							),
-							onTap: () {
-								_openFirstDialog();
-							},
 						),
 					),
 					
 					Expanded(
-						flex: 50,
-						child: GestureDetector(
-							child: Text(
-								'${_set.lang2}',
-								textAlign: TextAlign.center,
-								style: TextStyle(
-									fontSize: 20.0,
-									fontWeight: FontWeight.w600,
+						child: Padding(
+							padding: const EdgeInsets.all(8.0),
+							child: GestureDetector(
+								child: Text(
+									'${_set.lang2}',
+									textAlign: TextAlign.center,
+									style: TextStyle(
+										fontSize: 20.0,
+										fontWeight: FontWeight.w600,
+									),
 								),
+								onTap: () {
+									_openSecondDialog();
+								},
 							),
-							onTap: () {
-								_openSecondDialog();
-							},
 						),
 					)
 				
@@ -118,28 +125,69 @@ class _EditSetPageState extends State<EditSetPage> {
 	Widget _pairs(BuildContext context) {
 		return Expanded(
 			child: Scrollbar(
-			  child: ListView.separated(
-			  	itemCount: _set.wordPairs.length,
-			  	itemBuilder: _buildListTile,
-			  	separatorBuilder: (context, i) => Divider(),
-			  	
-			  ),
+				child: ListView.separated(
+					itemCount: _set.wordPairs.length,
+					itemBuilder: _buildListTile,
+					separatorBuilder: (context, i) => Divider(),
+				
+				),
 			),
 		);
 	}
 	
 	Widget _buildListTile(BuildContext context, int i) {
+		//'${_set.wordPairs[i].word1} - ${_set.wordPairs[i].word2}',
 		return Dismissible(
 			key: Key(_set.wordPairs[i].id),
-		  background: Container(color: Colors.grey,),
-		  child: ListTile(
-		  	title: Text(
-		  		'${_set.wordPairs[i].word1} ${_set.wordPairs[i].word2}',
-		  	),
-		  	onTap: () {
-		  		print('change pair');
-		  	},
-		  ),
+			background: Container(color: Colors.red,),
+			child: GestureDetector(
+				child: Row(
+					mainAxisAlignment: MainAxisAlignment.center,
+					children: <Widget>[
+						
+						Expanded(
+							child: Padding(
+								padding: const EdgeInsets.all(8.0),
+								child: Text(
+									'${_set.wordPairs[i].word1}',
+									textAlign: TextAlign.center,
+									style: TextStyle(
+										fontSize: 16.0,
+										fontWeight: FontWeight.w400
+									),
+								),
+							),
+						),
+						
+						Padding(
+							padding: const EdgeInsets.all(8.0),
+							child: Text(
+								' - ',
+								textAlign: TextAlign.center,
+								style: TextStyle(
+									fontSize: 16.0,
+									fontWeight: FontWeight.w400
+								),),
+						),
+						
+						Expanded(
+							child: Padding(
+								padding: const EdgeInsets.all(8.0),
+								child: Text(
+									'${_set.wordPairs[i].word2}',
+									textAlign: TextAlign.center,
+									style: TextStyle(
+										fontSize: 16.0,
+										fontWeight: FontWeight.w400
+									),
+								),
+							),
+						),
+					
+					
+					],
+				),
+			),
 			onDismissed: (direction) {
 				setState(() {
 					_set.removeWordPair(_set.wordPairs[i].id);
@@ -199,10 +247,15 @@ class _EditSetPageState extends State<EditSetPage> {
 							),
 						),
 						onPressed: () {
-							print('save');
 							_validateName();
-							_set.addWordPair('aa', 'sss');
-							print(_set.toMap());
+							
+							AuthService.instance.user.updateSet(_set)
+								.then((v) {
+								Navigator.of(context).pop();
+							})
+								.catchError((e) {
+								ShowInfo.error(context, '', e);
+							});
 						}
 					),
 				),

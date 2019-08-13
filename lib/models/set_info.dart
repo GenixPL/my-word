@@ -31,5 +31,9 @@ class SetInfo {
 
 		return map;
 	}
+	
+	SetInfo copy() {
+		return SetInfo(name, lang1, lang2, id);
+	}
 
 }
