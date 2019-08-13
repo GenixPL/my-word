@@ -14,7 +14,7 @@ class CreateSetPage extends StatefulWidget {
 
 class _CreateSetPageState extends State<CreateSetPage> {
 	
-	final _setNameController = TextEditingController();
+	final _nameController = TextEditingController();
 	Language _lang1 = LanguagePickerUtils.getLanguageByIsoCode('en');
 	Language _lang2 = LanguagePickerUtils.getLanguageByIsoCode('de');
 	
@@ -34,133 +34,144 @@ class _CreateSetPageState extends State<CreateSetPage> {
 				children: <Widget>[
 					
 					Expanded(
-						flex: 80,
 						child: Column(
 							mainAxisAlignment: MainAxisAlignment.center,
 							children: <Widget>[
 								
-								Padding(
-									padding: EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 32.0),
-									child: TextField(
-										style: TextStyle(
-											fontSize: 16.0,
-											fontWeight: FontWeight.w400,
-										),
-										controller: _setNameController,
-										decoration: InputDecoration(
-											hintText: 'Set Name',
-											errorText: _isNameValid ? null : 'Set name can\'t be empty.',
-										),
-									)
-								),
-								
-								Row(
-									children: <Widget>[
-										
-										Expanded(
-											flex: 50,
-											child: GestureDetector(
-												child: Text(
-													'${_lang1.name} (${_lang1.isoCode})',
-													textAlign: TextAlign.center,
-													style: TextStyle(
-														fontSize: 16.0,
-														fontWeight: FontWeight.w400,
-													),
-												),
-												onTap: () {
-													_openFirstDialog();
-												},
-											),
-										),
-										
-										Expanded(
-											flex: 50,
-											child: GestureDetector(
-												child: Text(
-													'${_lang2.name} (${_lang2.isoCode})',
-													textAlign: TextAlign.center,
-													style: TextStyle(
-														fontSize: 16.0,
-														fontWeight: FontWeight.w400,
-													),
-												),
-												onTap: () {
-													_openSecondDialog();
-												},
-											),
-										)
-									
-									]
-								)
+								_name(context),
+								_languages(context),
 							
 							],
 						),
 					),
 					
-					Expanded(
-						flex: 10,
-						child: Row(
-							mainAxisAlignment: MainAxisAlignment.center,
-							children: <Widget>[
-								
-								Padding(
-									padding: const EdgeInsets.all(8.0),
-									child: RaisedButton(
-										child: Text(
-											'Cancel',
-											style: TextStyle(
-												fontWeight: FontWeight.w600
-											),
-										),
-										color: Colors.red,
-										onPressed: () {
-											Navigator.of(context).pop();
-										}
-									),
-								),
-								
-								Padding(
-									padding: const EdgeInsets.all(8.0),
-									child: Builder(builder: (context) =>
-										RaisedButton(
-											child: Text(
-												'Create',
-												style: TextStyle(
-													fontWeight: FontWeight.w600
-												),
-											),
-											color: Colors.green,
-											onPressed: () {
-												setState(() {
-													_setNameController.text = _setNameController.text.trim();
-													_setNameController.text.isEmpty ? _isNameValid = false : _isNameValid = true;
-												});
-												
-												if (_isNameValid) {
-													AuthService.instance.user.addSet(_setNameController.text, _lang1.isoCode.toUpperCase(), _lang2.isoCode.toUpperCase())
-														.then((v) {
-														Navigator.of(context).pop();
-													})
-														.catchError((e) {
-															ShowInfo.error(context, '', e);
-													});
-												}
-											}
-										)
-									),
-								),
-							
-							],
-						),
-					),
+					_bottom(context),
 				
 				],
 			),
 		);
 	}
 	
-	void _openFirstDialog() {
+	Widget _name(BuildContext context) {
+		return Padding(
+			padding: EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 32.0),
+			child: TextField(
+				style: TextStyle(
+					fontSize: 16.0,
+					fontWeight: FontWeight.w400,
+				),
+				controller: _nameController,
+				decoration: InputDecoration(
+					hintText: 'Set Name',
+					errorText: _isNameValid ? null : 'Set name can\'t be empty.',
+				),
+			)
+		);
+	}
+	
+	Widget _languages(BuildContext context) {
+		return Row(
+			children: <Widget>[
+				
+				Expanded(
+					flex: 50,
+					child: GestureDetector(
+						child: Text(
+							'${_lang1.name} (${_lang1.isoCode})',
+							textAlign: TextAlign.center,
+							style: TextStyle(
+								fontSize: 16.0,
+								fontWeight: FontWeight.w400,
+							),
+						),
+						onTap: () {
+							_openFirstDialog();
+						},
+					),
+				),
+				
+				Expanded(
+					flex: 50,
+					child: GestureDetector(
+						child: Text(
+							'${_lang2.name} (${_lang2.isoCode})',
+							textAlign: TextAlign.center,
+							style: TextStyle(
+								fontSize: 16.0,
+								fontWeight: FontWeight.w400,
+							),
+						),
+						onTap: () {
+							_openSecondDialog();
+						},
+					),
+				)
+			
+			]
+		);
+	}
+	
+	Widget _bottom(BuildContext context) {
+		return Row(
+			mainAxisAlignment: MainAxisAlignment.center,
+			children: <Widget>[
+				
+				Padding(
+					padding: const EdgeInsets.all(8.0),
+					child: RaisedButton(
+						child: Text(
+							'Cancel',
+							style: TextStyle(
+								fontWeight: FontWeight.w600
+							),
+						),
+						color: Colors.red,
+						onPressed: () {
+							Navigator.of(context).pop();
+						}
+					),
+				),
+				
+				Padding(
+					padding: const EdgeInsets.all(8.0),
+					child: Builder(builder: (context) =>
+						RaisedButton(
+							child: Text(
+								'Create',
+								style: TextStyle(
+									fontWeight: FontWeight.w600
+								),
+							),
+							color: Colors.green,
+							onPressed: () {
+								_validateName();
+								
+								if (_isNameValid) {
+									AuthService.instance.user.addSet(_nameController.text, _lang1.isoCode.toUpperCase(), _lang2.isoCode.toUpperCase())
+										.then((v) {
+										Navigator.of(context).pop();
+									})
+										.catchError((e) {
+										ShowInfo.error(context, '', e);
+									});
+								}
+							}
+						)
+					),
+				),
+			
+			],
+		);
+	}
+	
+	_validateName() {
+		setState(() {
+			_nameController.text = _nameController.text.trim();
+			_nameController.text.isEmpty ? _isNameValid = false : _isNameValid = true;
+		});
+	}
+	
+	_openFirstDialog() {
 		showDialog(
 			context: context,
 			builder: (context) =>
@@ -178,7 +189,7 @@ class _CreateSetPageState extends State<CreateSetPage> {
 		);
 	}
 	
-	void _openSecondDialog() {
+	_openSecondDialog() {
 		showDialog(
 			context: context,
 			builder: (context) =>

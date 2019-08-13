@@ -2,25 +2,10 @@
 
 class WordPair {
 	
-	String _word1;
-	String _word2;
+	String word1;
+	String word2;
 	
-	String get word1 => _word1;
-	String get word2 => _word2;
-	
-	set word1(String word) {
-		word.trim();
-		//TODO: possible validation here or somewhere else
-		_word1 = word;
-	}
-	
-	set word2(String word) {
-		word.trim();
-		//TODO: possible validation here or somewhere else
-		_word2 = word;
-	}
-	
-	WordPair(this._word1, this._word2);
+	WordPair(this.word1, this.word2);
 	
 	static WordPair fromMap(Map<String, dynamic> map) {
 		var word1 = map['word1'] ?? (throw ArgumentError("word1 is required"));

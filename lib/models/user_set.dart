@@ -15,6 +15,19 @@ class UserSet {
 	String get lang2 => _setInfo.lang2;
 	
 	
+	set name(String name) {
+		_setInfo.name = name;
+	}
+	
+	set lang1(String lang) {
+		_setInfo.lang1 = lang;
+	}
+	
+	set lang2(String lang) {
+		_setInfo.lang2 = lang;
+	}
+	
+	
 	UserSet(this._setInfo, this._wordPairs);
 	
 	static UserSet fromMap(Map<String, dynamic> map) {
@@ -36,6 +49,15 @@ class UserSet {
 	}
 	
 	Map<String, dynamic> toMap() {
-		//TODO:
+		var map = Map<String, dynamic>();
+		
+		map.addAll(_setInfo.toMap());
+		map['wordPairs'] = _wordPairs.map((setInfo) => setInfo.toMap()).toList();
+		
+		return map;
+	}
+	
+	addWordPair(String word1, String word2) {
+		_wordPairs.add(WordPair(word1, word2));
 	}
 }
