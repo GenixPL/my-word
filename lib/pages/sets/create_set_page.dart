@@ -63,7 +63,7 @@ class _CreateSetPageState extends State<CreateSetPage> {
 				controller: _nameController,
 				decoration: InputDecoration(
 					hintText: 'Set Name',
-					errorText: _isNameValid ? null : 'Set name can\'t be empty.',
+					errorText: _isNameValid ? null : 'Field can\'t be empty.',
 				),
 			)
 		);

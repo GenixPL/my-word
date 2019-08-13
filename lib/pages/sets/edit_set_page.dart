@@ -64,7 +64,7 @@ class _EditSetPageState extends State<EditSetPage> {
 				},
 				decoration: InputDecoration(
 					hintText: 'Set Name',
-					errorText: _isNameValid ? null : 'Set name can\'t be empty.',
+					errorText: _isNameValid ? null : 'Field can\'t be empty.',
 				),
 			)
 		);
@@ -164,6 +164,9 @@ class _EditSetPageState extends State<EditSetPage> {
 						onPressed: () {
 							print('remove');
 							//TODO: ask if for sure
+							//(encapsulate both under to user)
+							//TODO: remove from user
+							//TODO: remove from private-sets
 						}
 					),
 				),
@@ -178,7 +181,7 @@ class _EditSetPageState extends State<EditSetPage> {
 							),
 						),
 						onPressed: () {
-							print('add');
+							Navigator.of(context).pushNamed('/sets/edit/add', arguments: _set);
 						}
 					),
 				),
@@ -196,7 +199,6 @@ class _EditSetPageState extends State<EditSetPage> {
 						onPressed: () {
 							print('save');
 							_validateName();
-							_set.addWordPair('jeden', 'dwa'); //TODO: remove
 							print(_set.toMap());
 						}
 					),
