@@ -7,15 +7,6 @@ import 'package:my_word/models/MwSet.dart';
 
 class MwDbService {
 	
-	//singleton stuff
-	static final MwDbService _instance = MwDbService._init();
-	
-	static MwDbService get instance => _instance;
-	
-	MwDbService._init();
-	
-	
-	
 	static const _TAG = 'DBService';
 	
 	final _usersCollection = Firestore.instance.collection('users');

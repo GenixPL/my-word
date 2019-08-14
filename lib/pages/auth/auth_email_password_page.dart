@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_word/services/MwAuthService.dart';
+import 'package:my_word/services/MwFactory.dart';
 import 'package:my_word/show_info.dart';
 
 
@@ -60,7 +60,7 @@ class _AuthEmailPasswordPageState extends State<AuthEmailPasswordPage> {
 											onPressed: () {
 												FocusScope.of(context).requestFocus(new FocusNode());
 												
-												MwAuthService.instance.signUpEmailPassword(_email, _password)
+												MwFactory.userService.signUpEmailPassword(_email, _password)
 													.then((error) {
 													Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false);
 												}).catchError((e) {
@@ -80,7 +80,7 @@ class _AuthEmailPasswordPageState extends State<AuthEmailPasswordPage> {
 												onPressed: () {
 													FocusScope.of(context).requestFocus(new FocusNode());
 													
-													MwAuthService.instance.signInEmailPassword(_email, _password)
+													MwFactory.userService.signInEmailPassword(_email, _password)
 														.then((error) {
 														Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false);
 													}).catchError((e) {

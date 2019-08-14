@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_word/route_generator.dart';
-import 'package:my_word/services/MwAuthService.dart';
+import 'package:my_word/services/user/MwUserService.dart';
 import 'package:provider/provider.dart';
 
 
@@ -8,8 +8,7 @@ class MainDrawer extends StatelessWidget {
 	
 	@override
 	Widget build(BuildContext context) {
-		var auth = Provider.of<MwAuthService>(context);
-		var isLoggedIn = (auth.user != null);
+		var userService = Provider.of<MwUserService>(context);
 		
 		return Drawer(
 			child: Column(
@@ -18,7 +17,7 @@ class MainDrawer extends StatelessWidget {
 					UserAccountsDrawerHeader(
 						accountName: Text(''),
 						accountEmail: Text(
-							isLoggedIn ? auth.user.email : 'Please log in',
+							userService.isSigned ? userService.email : 'Please log in',
 							style: TextStyle(
 								fontWeight: FontWeight.w700,
 							),
@@ -109,7 +108,7 @@ class MainDrawer extends StatelessWidget {
 									onTap: () {
 										Navigator.pop(context); //hides menu
 										
-										if (auth.isSigned) {
+										if (userService.isSigned) {
 											Navigator.pushNamed(context, '/account');
 										} else {
 											Navigator.pushNamed(context, '/auth');

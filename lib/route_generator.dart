@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_word/services/MwFactory.dart';
 import 'package:my_word/models/MwSet.dart';
 import 'package:my_word/models/MwWordPair.dart';
 import 'package:my_word/pages/account/account_menu_page.dart';
@@ -10,7 +11,6 @@ import 'package:my_word/pages/sets/create_set_page.dart';
 import 'package:my_word/pages/sets/edit_pair.dart';
 import 'package:my_word/pages/sets/edit_set_page.dart';
 import 'package:my_word/pages/sets/sets_menu_page.dart';
-import 'package:my_word/services/MwAuthService.dart';
 
 
 class RouteGenerator {
@@ -22,7 +22,7 @@ class RouteGenerator {
 	static Route<dynamic> generateRoute(RouteSettings settings) {
 		final args = settings.arguments;
 		
-		if (!MwAuthService.instance.isSigned && !settings.name.contains('/auth')) {
+		if (!MwFactory.userService.isSigned && !settings.name.contains('/auth')) {
 			return MaterialPageRoute(builder: (_) => AuthMenuPage());
 		}
 		

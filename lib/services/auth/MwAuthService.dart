@@ -1,18 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:my_word/models/MwUser.dart';
-import 'package:my_word/services/MwDBService.dart';
+import 'package:my_word/services/MwDbService.dart';
+
+
 
 class MwAuthService with ChangeNotifier {
-	
-	//singleton stuff
-	static final MwAuthService _instance = MwAuthService._init();
-	
-	static MwAuthService get instance => _instance;
-	
-	MwAuthService._init();
-	
-	
 	
 	static const _TAG = 'AuthService';
 	
@@ -28,7 +21,7 @@ class MwAuthService with ChangeNotifier {
 	MwUser get user => _user;
 	
 	
-	Future<void> checkUserExists() async {
+	Future<FirebaseUser> checkUserExists() async {
 		var firebaseUser;
 		try {
 			firebaseUser = await _auth.currentUser();
@@ -37,25 +30,7 @@ class MwAuthService with ChangeNotifier {
 			throw e;
 		}
 		
-		if (firebaseUser == null) {
-			print('$_TAG: checkUserExists: success (user doesn\'t exist)');
-			
-			return;
-		}
-		
-		var userDoc;
-		try {
-			userDoc = await MwDbService.instance.getUserDoc(firebaseUser.uid);
-		} catch (e) {
-			print('$_TAG: checkUserExists: failure (getUserDoc), error: ${e.toString()}');
-			throw e;
-		}
-		
-		_user = MwUser.fromMap(userDoc);
-		_isSigned = true;
-		
-		print('$_TAG: checkUserExists: success (user exists)');
-		notifyListeners();
+		return firebaseUser;
 	}
 	
 	Future<void> signInEmailPassword(String email, String password) async {

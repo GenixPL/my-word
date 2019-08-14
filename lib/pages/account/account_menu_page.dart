@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_word/services/MwAuthService.dart';
+import 'package:my_word/services/MwFactory.dart';
 import 'package:my_word/show_info.dart';
 
 
@@ -56,7 +56,7 @@ class AccountMenuPage extends StatelessWidget {
 										child: Text('Sign out'),
 										color: Colors.red,
 										onPressed: () {
-											MwAuthService.instance.signOut()
+											MwFactory.userService.signOut()
 												.then((v) {
 												Navigator.pushNamedAndRemoveUntil(context, '/auth', (Route<dynamic> route) => false);
 											}).catchError((e) {

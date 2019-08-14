@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:language_pickers/language.dart';
 import 'package:language_pickers/language_picker_dialog.dart';
+import 'package:my_word/services/MwFactory.dart';
 import 'package:my_word/models/MwSet.dart';
-import 'package:my_word/services/MwAuthService.dart';
 import 'package:my_word/show_info.dart';
 
 
@@ -225,15 +225,15 @@ class _EditSetPageState extends State<EditSetPage> {
 											children: <Widget>[
 												
 												Padding(
-												  padding: const EdgeInsets.fromLTRB(8.0, 16.0, 8.0, 8.0),
-												  child: Text(
-												  	'This cannot be undone!',
-												  	textAlign: TextAlign.center,
-													  style: TextStyle(
-														  fontWeight: FontWeight.w600,
-														  fontSize: 24.0,
-													  ),
-												  ),
+													padding: const EdgeInsets.fromLTRB(8.0, 16.0, 8.0, 8.0),
+													child: Text(
+														'This cannot be undone!',
+														textAlign: TextAlign.center,
+														style: TextStyle(
+															fontWeight: FontWeight.w600,
+															fontSize: 24.0,
+														),
+													),
 												),
 												
 												Row(
@@ -261,11 +261,11 @@ class _EditSetPageState extends State<EditSetPage> {
 																),
 															),
 															onPressed: () {
-																MwAuthService.instance.user.deleteSet(_set.id)
+																MwFactory.userService.deleteSet(_set.id)
 																	.then((v) {
-																		Navigator.of(context).pop();
-																		Navigator.of(context).pop();
-																}).catchError((e){
+																	Navigator.of(context).pop();
+																	Navigator.of(context).pop();
+																}).catchError((e) {
 																	ShowInfo.error(context, '', e);
 																	Navigator.of(context).pop();
 																});
@@ -312,7 +312,7 @@ class _EditSetPageState extends State<EditSetPage> {
 						onPressed: () {
 							_validateName();
 							
-							MwAuthService.instance.user.updateSet(_set)
+							MwFactory.userService.updateSet(_set)
 								.then((v) {
 								Navigator.of(context).pop();
 							})
