@@ -11,7 +11,7 @@ class MWSetInfo {
 	String get id => _id;
 
 	
-	MWSetInfo(this.name, this.lang1, this.lang2, this.id);
+	MWSetInfo(this.name, this.lang1, this.lang2, this._id);
 
 	static MWSetInfo fromMap(Map<dynamic, dynamic> map) {
 		var name = map['name'] ?? (throw ArgumentError("set_name is required"));
