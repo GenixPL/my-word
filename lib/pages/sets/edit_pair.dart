@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:my_word/models/MWSet.dart';
-import 'package:my_word/models/MWWordPair.dart';
+import 'package:my_word/models/MwWordPair.dart';
 
 
 class EditPairPage extends StatefulWidget {
 	
-	final MWWordPair wordPair;
+	final MwWordPair wordPair;
 	
 	EditPairPage(this.wordPair);
 	
@@ -16,7 +15,7 @@ class EditPairPage extends StatefulWidget {
 
 class _EditPairPageState extends State<EditPairPage> {
 	
-	MWWordPair _pair;
+	MwWordPair _pair;
 	
 	final _word1Controller = TextEditingController();
 	final _word2Controller = TextEditingController();

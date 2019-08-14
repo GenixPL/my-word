@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:my_word/services/auth_service.dart';
-import 'package:provider/provider.dart';
 import 'package:my_word/route_generator.dart';
+import 'package:my_word/services/MwAuthService.dart';
+import 'package:provider/provider.dart';
 
 
 class MainDrawer extends StatelessWidget {
-
+	
 	@override
 	Widget build(BuildContext context) {
-		var auth = Provider.of<AuthService>(context);
+		var auth = Provider.of<MwAuthService>(context);
 		var isLoggedIn = (auth.user != null);
-
+		
 		return Drawer(
 			child: Column(
 				children: <Widget>[
-
+					
 					UserAccountsDrawerHeader(
 						accountName: Text(''),
 						accountEmail: Text(
@@ -30,7 +30,7 @@ class MainDrawer extends StatelessWidget {
 							),
 						),
 					),
-
+					
 					GestureDetector(
 						child: Row(
 							mainAxisAlignment: MainAxisAlignment.start,
@@ -51,12 +51,14 @@ class MainDrawer extends StatelessWidget {
 								)),
 							],
 						),
-						onTap: RouteGenerator.lastRoute == '/' ? () { Navigator.pop(context); } : () {
+						onTap: RouteGenerator.lastRoute == '/' ? () {
+							Navigator.pop(context);
+						} : () {
 							Navigator.pop(context); //hides menu
 							Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false);
 						},
 					),
-
+					
 					GestureDetector(
 						child: Row(
 							mainAxisAlignment: MainAxisAlignment.start,
@@ -69,25 +71,29 @@ class MainDrawer extends StatelessWidget {
 										color: RouteGenerator.lastRoute == '/sets' ? Colors.grey : Colors.white,
 									),
 								),
-								Expanded(child: Text(
-									'Sets',
-									style: TextStyle(
-										color: RouteGenerator.lastRoute == '/sets' ? Colors.grey : Colors.white,
-									),
-								)),
+								Expanded(
+									child: Text(
+										'Manage Sets',
+										style: TextStyle(
+											color: RouteGenerator.lastRoute == '/sets' ? Colors.grey : Colors.white,
+										),
+									)
+								),
 							],
 						),
-						onTap: RouteGenerator.lastRoute == '/sets' ? () { Navigator.pop(context); } : () {
+						onTap: RouteGenerator.lastRoute == '/sets' ? () {
+							Navigator.pop(context);
+						} : () {
 							Navigator.pop(context); //hides menu
 							Navigator.pushNamed(context, '/sets');
 						},
 					),
-
+					
 					Expanded(
 						child: Column(
 							mainAxisAlignment: MainAxisAlignment.end,
 							children: <Widget>[
-
+								
 								GestureDetector(
 									child: Row(
 										mainAxisAlignment: MainAxisAlignment.start,
@@ -102,7 +108,7 @@ class MainDrawer extends StatelessWidget {
 									),
 									onTap: () {
 										Navigator.pop(context); //hides menu
-
+										
 										if (auth.isSigned) {
 											Navigator.pushNamed(context, '/account');
 										} else {
@@ -110,7 +116,7 @@ class MainDrawer extends StatelessWidget {
 										}
 									},
 								),
-
+							
 							],
 						),
 					),
@@ -118,5 +124,5 @@ class MainDrawer extends StatelessWidget {
 			),
 		);
 	}
-
+	
 }

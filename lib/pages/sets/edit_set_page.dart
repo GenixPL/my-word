@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:language_pickers/language.dart';
 import 'package:language_pickers/language_picker_dialog.dart';
-import 'package:my_word/models/MWSet.dart';
-import 'package:my_word/services/auth_service.dart';
+import 'package:my_word/models/MwSet.dart';
+import 'package:my_word/services/MwAuthService.dart';
 import 'package:my_word/show_info.dart';
 
 
 class EditSetPage extends StatefulWidget {
 	
-	final MWSet userSet;
+	final MwSet userSet;
 	
 	EditSetPage(this.userSet);
 	
@@ -19,7 +19,7 @@ class EditSetPage extends StatefulWidget {
 
 class _EditSetPageState extends State<EditSetPage> {
 	
-	MWSet _set;
+	MwSet _set;
 	
 	final _nameController = TextEditingController();
 	bool _isNameValid = true;
@@ -263,7 +263,7 @@ class _EditSetPageState extends State<EditSetPage> {
 															onPressed: () {
 																Navigator.of(context).pop();
 																
-																AuthService.instance.user.deleteSet(_set.id)
+																MwAuthService.instance.user.deleteSet(_set.id)
 																	.then((v) {
 																		Navigator.of(context).pop();
 																}).catchError((e){
@@ -312,7 +312,7 @@ class _EditSetPageState extends State<EditSetPage> {
 						onPressed: () {
 							_validateName();
 							
-							AuthService.instance.user.updateSet(_set)
+							MwAuthService.instance.user.updateSet(_set)
 								.then((v) {
 								Navigator.of(context).pop();
 							})

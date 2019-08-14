@@ -1,9 +1,9 @@
-import 'package:my_word/models/MWSetInfo.dart';
-import 'package:my_word/models/MWSet.dart';
-import 'package:my_word/services/db_service.dart';
+import 'package:my_word/models/MwSetInfo.dart';
+import 'package:my_word/models/MwSet.dart';
+import 'package:my_word/services/MwDBService.dart';
 
 
-class MWUser {
+class MwUser {
 	
 	//TODO: move logic to separate service
 	
@@ -11,30 +11,30 @@ class MWUser {
 	
 	String _id;
 	String _email;
-	List<MWSetInfo> _sets;
+	List<MwSetInfo> _sets;
 	
 	
 	String get id => _id;
 	
 	String get email => _email;
 	
-	List<MWSetInfo> get sets => _sets;
+	List<MwSetInfo> get sets => _sets;
 	
 	
 	
-	MWUser(this._id, this._email, this._sets);
+	MwUser(this._id, this._email, this._sets);
 	
-	static MWUser fromMap(Map<String, dynamic> map) {
+	static MwUser fromMap(Map<String, dynamic> map) {
 		var id = map['id'] ?? (throw ArgumentError("id is required"));
 		var email = map['email'] ?? (throw ArgumentError("email is required"));
 		
-		var sets = List<MWSetInfo>();
+		var sets = List<MwSetInfo>();
 		if (map.containsKey('sets')) {
 			var setsList = map['sets'] as List;
-			setsList.forEach((setMap) => sets.add(MWSetInfo.fromMap(setMap)));
+			setsList.forEach((setMap) => sets.add(MwSetInfo.fromMap(setMap)));
 		}
 		
-		return MWUser(id, email, sets);
+		return MwUser(id, email, sets);
 	}
 	
 	Map<String, dynamic> toMap() {
@@ -49,10 +49,10 @@ class MWUser {
 	
 	
 	Future<void> addSet(String name, String lang1, String lang2) async {
-		var setInfo = MWSetInfo(name, lang1, lang2, _getNewSetID());
+		var setInfo = MwSetInfo(name, lang1, lang2, _getNewSetID());
 		
 		try {
-			await DBService.instance.createSetDoc(setInfo);
+			await MwDbService.instance.createSetDoc(setInfo);
 		} catch (e) {
 			print('$_TAG: addSet: failure (createSetDoc), error: ${e.toString()}');
 			throw e;
@@ -60,7 +60,7 @@ class MWUser {
 		
 		sets.add(setInfo);
 		try {
-			await DBService.instance.updateUserDoc(this);
+			await MwDbService.instance.updateUserDoc(this);
 		} catch (e) {
 			print('$_TAG: addSet: failure (updateUserDoc), error: ${e.toString()}');
 			
@@ -70,17 +70,17 @@ class MWUser {
 		print('$_TAG: addSet: success');
 	}
 	
-	Future<void> updateSet(MWSet set) async {
+	Future<void> updateSet(MwSet set) async {
 		_updateSetInfo(set.setInfo);
 		
 		try {
-			DBService.instance.updateUserDoc(this);
+			await MwDbService.instance.updateUserDoc(this);
 		} catch (e) {
 			print('$_TAG: updateSet: failure (updateUserDoc), error: ${e.toString()}');
 		}
 		
 		try {
-			DBService.instance.updateSetDoc(set);
+			await MwDbService.instance.updateSetDoc(set);
 		} catch (e) {
 			print('$_TAG: updateSet: failure (updateSetDoc), error: ${e.toString()}');
 		}
@@ -92,13 +92,13 @@ class MWUser {
 		_removeSetInfo(setID);
 		
 		try {
-			DBService.instance.updateUserDoc(this);
+			await MwDbService.instance.updateUserDoc(this);
 		} catch (e) {
 			print('$_TAG: deleteSet: failure (updateUserDoc), error: ${e.toString()}');
 		}
 		
 		try {
-			DBService.instance.deleteSetDoc(setID);
+			await MwDbService.instance.deleteSetDoc(setID);
 		} catch (e) {
 			print('$_TAG: deleteSet: failure (deleteSetDoc), error: ${e.toString()}');
 		}
@@ -113,7 +113,7 @@ class MWUser {
 			.toString();
 	}
 	
-	void _updateSetInfo(MWSetInfo info) {
+	void _updateSetInfo(MwSetInfo info) {
 		_removeSetInfo(info.id);
 		_sets.add(info.copy());
 	}

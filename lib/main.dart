@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 import 'package:my_word/route_generator.dart';
 import 'package:provider/provider.dart';
-import 'package:my_word/services/auth_service.dart';
+import 'package:my_word/services/MwAuthService.dart';
 
 
 void main() async {
-	await AuthService.instance.checkUserExists();
+	await MwAuthService.instance.checkUserExists();
 
 	runApp(MyApp());
 }
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
 			  ),
 		  ),
 			providers: [
-				ChangeNotifierProvider<AuthService>.value(value: AuthService.instance),
+				ChangeNotifierProvider<MwAuthService>.value(value: MwAuthService.instance),
 			],
 		);
 	}

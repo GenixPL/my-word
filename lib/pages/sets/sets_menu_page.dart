@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_word/main_drawer.dart';
-import 'package:my_word/services/auth_service.dart';
-import 'package:my_word/models/MWSet.dart';
-import 'package:my_word/services/db_service.dart';
+import 'package:my_word/services/MwAuthService.dart';
+import 'package:my_word/models/MwSet.dart';
+import 'package:my_word/services/MwDBService.dart';
 import 'package:my_word/show_info.dart';
 import 'package:provider/provider.dart';
 
@@ -56,7 +56,7 @@ class SetsPage extends StatelessWidget {
 	}
 	
 	Widget _setsListView(BuildContext context) {
-		var auth = Provider.of<AuthService>(context);
+		var auth = Provider.of<MwAuthService>(context);
 		var sets = auth.user.sets;
 		
 		return Scrollbar(
@@ -75,8 +75,8 @@ class SetsPage extends StatelessWidget {
 		  				'${sets[i].name}',
 		  			),
 		  			onTap: () {
-		  				DBService.instance.getSetDoc(sets[i].id).then((map) { //TODO: move that responsibility
-		  					Navigator.of(context).pushNamed('/sets/edit', arguments: MWSet.fromMap(map));
+		  				MwDbService.instance.getSetDoc(sets[i].id).then((map) { //TODO: move that responsibility
+		  					Navigator.of(context).pushNamed('/sets/edit', arguments: MwSet.fromMap(map));
 		  				}).catchError((e) {
 		  					ShowInfo.error(context, '', e);
 		  				});

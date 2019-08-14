@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:language_pickers/language.dart';
 import 'package:language_pickers/language_picker_dialog.dart';
 import 'package:language_pickers/utils/utils.dart';
-import 'package:my_word/services/auth_service.dart';
+import 'package:my_word/services/MwAuthService.dart';
 import 'package:my_word/show_info.dart';
 
 
@@ -147,7 +147,7 @@ class _CreateSetPageState extends State<CreateSetPage> {
 								_validateName();
 								
 								if (_isNameValid) {
-									AuthService.instance.user.addSet(_nameController.text, _lang1.isoCode.toUpperCase(), _lang2.isoCode.toUpperCase())
+									MwAuthService.instance.user.addSet(_nameController.text, _lang1.isoCode.toUpperCase(), _lang2.isoCode.toUpperCase())
 										.then((v) {
 										Navigator.of(context).pop();
 									})

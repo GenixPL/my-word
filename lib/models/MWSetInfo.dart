@@ -1,6 +1,6 @@
 
 
-class MWSetInfo {
+class MwSetInfo {
 
 	String name;
 	String lang1;
@@ -11,15 +11,15 @@ class MWSetInfo {
 	String get id => _id;
 
 	
-	MWSetInfo(this.name, this.lang1, this.lang2, this._id);
+	MwSetInfo(this.name, this.lang1, this.lang2, this._id);
 
-	static MWSetInfo fromMap(Map<dynamic, dynamic> map) {
+	static MwSetInfo fromMap(Map<dynamic, dynamic> map) {
 		var name = map['name'] ?? (throw ArgumentError("set_name is required"));
 		var lang1 = map['lang1'] ?? (throw ArgumentError("set_lang1 is required"));
 		var lang2 = map['lang2'] ?? (throw ArgumentError("set_lang2 is required"));
 		var id = map['id'] ?? (throw ArgumentError("set_id is required"));
 
-		return MWSetInfo(name, lang1, lang2, id);
+		return MwSetInfo(name, lang1, lang2, id);
 	}
 
 	Map<String, dynamic> toMap() {
@@ -33,8 +33,8 @@ class MWSetInfo {
 		return map;
 	}
 	
-	MWSetInfo copy() {
-		return MWSetInfo(name, lang1, lang2, id);
+	MwSetInfo copy() {
+		return MwSetInfo(name, lang1, lang2, id);
 	}
 
 }

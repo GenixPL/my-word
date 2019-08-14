@@ -1,16 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:my_word/models/MWUser.dart';
-import 'package:my_word/services/db_service.dart';
+import 'package:my_word/services/MWDBService.dart';
 
-class AuthService with ChangeNotifier {
+class MWAuthService with ChangeNotifier {
 	
 	//singleton stuff
-	static final AuthService _instance = AuthService._init();
+	static final MWAuthService _instance = MWAuthService._init();
 	
-	static AuthService get instance => _instance;
+	static MWAuthService get instance => _instance;
 	
-	AuthService._init();
+	MWAuthService._init();
 	
 	
 	

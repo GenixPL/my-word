@@ -1,11 +1,11 @@
-import 'package:my_word/models/MWSetInfo.dart';
-import 'package:my_word/models/MWWordPair.dart';
+import 'package:my_word/models/MwSetInfo.dart';
+import 'package:my_word/models/MwWordPair.dart';
 
 
-class MWSet {
+class MwSet {
 	
-	MWSetInfo _setInfo;
-	List<MWWordPair> _wordPairs;
+	MwSetInfo _setInfo;
+	List<MwWordPair> _wordPairs;
 	
 	
 	String get id => _setInfo.id;
@@ -16,9 +16,9 @@ class MWSet {
 	
 	String get lang2 => _setInfo.lang2;
 	
-	List<MWWordPair> get wordPairs => _wordPairs;
+	List<MwWordPair> get wordPairs => _wordPairs;
 	
-	MWSetInfo get setInfo => _setInfo.copy();
+	MwSetInfo get setInfo => _setInfo.copy();
 	
 	
 	set name(String name) {
@@ -34,18 +34,18 @@ class MWSet {
 	}
 	
 	
-	MWSet(this._setInfo, this._wordPairs);
+	MwSet(this._setInfo, this._wordPairs);
 	
-	static MWSet fromMap(Map<dynamic, dynamic> map) {
-		var setInfo = MWSetInfo.fromMap(map);
+	static MwSet fromMap(Map<dynamic, dynamic> map) {
+		var setInfo = MwSetInfo.fromMap(map);
 		
-		var wordPairs = List<MWWordPair>();
+		var wordPairs = List<MwWordPair>();
 		if (map.containsKey('wordPairs')) {
 			var wordPairsList = map['wordPairs'] as List;
-			wordPairsList.forEach((pairMap) => wordPairs.add(MWWordPair.fromMap(pairMap)));
+			wordPairsList.forEach((pairMap) => wordPairs.add(MwWordPair.fromMap(pairMap)));
 		}
 		
-		return MWSet(setInfo, wordPairs);
+		return MwSet(setInfo, wordPairs);
 	}
 	
 	Map<String, dynamic> toMap() {
@@ -58,7 +58,7 @@ class MWSet {
 	}
 	
 	addWordPair(String word1, String word2) {
-		_wordPairs.add(MWWordPair.createNew(word1, word2));
+		_wordPairs.add(MwWordPair.createNew(word1, word2));
 	}
 	
 	removeWordPair(String wordPairID) {

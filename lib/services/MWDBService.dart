@@ -1,18 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:my_word/models/MWSetInfo.dart';
-import 'package:my_word/models/MWUser.dart';
-import 'package:my_word/models/MWSet.dart';
+import 'package:my_word/models/MwSetInfo.dart';
+import 'package:my_word/models/MwUser.dart';
+import 'package:my_word/models/MwSet.dart';
 
 
-class DBService {
+class MwDbService {
 	
 	//singleton stuff
-	static final DBService _instance = DBService._init();
+	static final MwDbService _instance = MwDbService._init();
 	
-	static DBService get instance => _instance;
+	static MwDbService get instance => _instance;
 	
-	DBService._init();
+	MwDbService._init();
 	
 	
 	
@@ -37,7 +37,7 @@ class DBService {
 		print('$_TAG: createUserDoc: success');
 	}
 	
-	Future<void> updateUserDoc(MWUser user) async {
+	Future<void> updateUserDoc(MwUser user) async {
 		try {
 			await _usersCollection.document(user.id).setData(user.toMap(), merge: true);
 		} catch (e) {
@@ -84,7 +84,7 @@ class DBService {
 	
 	
 	//SETS
-	Future<void> createSetDoc(MWSetInfo setInfo) async {
+	Future<void> createSetDoc(MwSetInfo setInfo) async {
 		try {
 			await _privateSetsCollection.document(setInfo.id).setData(setInfo.toMap());
 		} catch (e) {
@@ -109,7 +109,7 @@ class DBService {
 		return docSnap.data;
 	}
 	
-	Future<void> updateSetDoc(MWSet set) async {
+	Future<void> updateSetDoc(MwSet set) async {
 		try {
 			await _privateSetsCollection.document(set.id).setData(set.toMap(), merge: true);
 		} catch (e) {
