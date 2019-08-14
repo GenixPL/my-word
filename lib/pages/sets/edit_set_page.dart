@@ -261,13 +261,13 @@ class _EditSetPageState extends State<EditSetPage> {
 																),
 															),
 															onPressed: () {
-																Navigator.of(context).pop();
-																
 																MwAuthService.instance.user.deleteSet(_set.id)
 																	.then((v) {
 																		Navigator.of(context).pop();
+																		Navigator.of(context).pop();
 																}).catchError((e){
 																	ShowInfo.error(context, '', e);
+																	Navigator.of(context).pop();
 																});
 															},
 														),

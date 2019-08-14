@@ -17,7 +17,7 @@ class ShowInfo {
 		);
 	}
 	
-	static error(BuildContext context, String msg, TypeError e) {
+	static error(BuildContext context, String msg, Object e) {
 		print('$_TAG: error: ${e.toString()}');
 		
 		Scaffold.of(context).showSnackBar(
