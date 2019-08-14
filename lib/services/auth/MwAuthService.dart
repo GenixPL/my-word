@@ -1,109 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
-import 'package:my_word/models/MwUser.dart';
-import 'package:my_word/services/MwDbService.dart';
 
 
-
-class MwAuthService with ChangeNotifier {
+abstract class MwAuthService {
 	
-	static const _TAG = 'AuthService';
+	Future<FirebaseUser> getCurrentUser();
 	
-	FirebaseAuth _auth = FirebaseAuth.instance;
+	Future<AuthResult> signInEmailPassword(String email, String password);
 	
-	bool _isSigned = false;
-	MwUser _user;
+	Future<AuthResult> signUpEmailPassword(String email, String password);
 	
-	
-	
-	bool get isSigned => _isSigned;
-	
-	MwUser get user => _user;
-	
-	
-	Future<FirebaseUser> checkUserExists() async {
-		var firebaseUser;
-		try {
-			firebaseUser = await _auth.currentUser();
-		} catch (e) {
-			print('$_TAG: checkUserExists: failure (currentUser), error: ${e.toString()}');
-			throw e;
-		}
-		
-		return firebaseUser;
-	}
-	
-	Future<void> signInEmailPassword(String email, String password) async {
-		if (_isSigned) {
-			signOut();
-		}
-		
-		var authResult;
-		try {
-			authResult = await _auth.signInWithEmailAndPassword(email: email, password: password);
-		} catch (e) {
-			print('$_TAG: signInEmailPassword: failure (signInWithEmailAndPassword), error: ${e.toString()}');
-			throw e;
-		}
-		
-		var userDoc;
-		try {
-			userDoc = await MwDbService.instance.getUserDoc(authResult.user.uid);
-		} catch (e) {
-			print('$_TAG: signInEmailPassword: failure (getUserDoc), error: ${e.toString()}');
-			throw e;
-		}
-		
-		_user = MwUser.fromMap(userDoc);
-		_isSigned = true;
-		
-		print('$_TAG: signInEmailPassword: success');
-		notifyListeners();
-	}
-	
-	Future<void> signUpEmailPassword(String email, String password) async {
-		var authResult;
-		try {
-			authResult = await _auth.createUserWithEmailAndPassword(email: email, password: password);
-		} catch (e) {
-			print('$_TAG: signUpEmailPassword: failure (createUserWithEmailAndPassword), error: ${e.toString()}');
-			throw e;
-		}
-		
-		try {
-			await MwDbService.instance.createUserDoc(authResult.user);
-		} catch (e) {
-			print('$_TAG: signUpEmailPassword: failure (createUserDoc), error: ${e.toString()}');
-			throw e;
-		}
-		
-		var userDoc;
-		try {
-			userDoc = await MwDbService.instance.getUserDoc(authResult.user.uid);
-		} catch (e) {
-			print('$_TAG: signUpEmailPassword: failure (getUserDoc), error: ${e.toString()}');
-			throw e;
-		}
-		
-		_user = MwUser.fromMap(userDoc);
-		_isSigned = true;
-		
-		print('$_TAG: signUpEmailPassword: success');
-		notifyListeners();
-	}
-	
-	Future<void> signOut() async {
-		try {
-			await _auth.signOut();
-		} catch (e) {
-			print('$_TAG: signOut: failure, error: ${e.toString()}');
-			throw e;
-		}
-		
-		_user = null;
-		_isSigned = false;
-		
-		print('$_TAG: signOut: success');
-		notifyListeners();
-	}
+	Future<void> signOut();
 }
