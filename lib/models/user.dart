@@ -1,5 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:my_word/models/set_info.dart';
+import 'package:my_word/models/MWSetInfo.dart';
 import 'package:my_word/models/user_set.dart';
 import 'package:my_word/services/db_service.dart';
 
@@ -12,14 +11,14 @@ class User {
 	
 	String _id;
 	String _email;
-	List<SetInfo> _sets;
+	List<MWSetInfo> _sets;
 	
 	
 	String get id => _id;
 	
 	String get email => _email;
 	
-	List<SetInfo> get sets => _sets;
+	List<MWSetInfo> get sets => _sets;
 	
 	
 	
@@ -29,10 +28,10 @@ class User {
 		var id = map['id'] ?? (throw ArgumentError("id is required"));
 		var email = map['email'] ?? (throw ArgumentError("email is required"));
 		
-		var sets = List<SetInfo>();
+		var sets = List<MWSetInfo>();
 		if (map.containsKey('sets')) {
 			var setsList = map['sets'] as List;
-			setsList.forEach((setMap) => sets.add(SetInfo.fromMap(setMap)));
+			setsList.forEach((setMap) => sets.add(MWSetInfo.fromMap(setMap)));
 		}
 		
 		return User(id, email, sets);
@@ -50,7 +49,7 @@ class User {
 	
 	
 	Future<void> addSet(String name, String lang1, String lang2) async {
-		var setInfo = SetInfo(name, lang1, lang2, _getNewSetID());
+		var setInfo = MWSetInfo(name, lang1, lang2, _getNewSetID());
 		
 		try {
 			await DBService.instance.createSetDoc(setInfo);
@@ -89,13 +88,38 @@ class User {
 		print('$_TAG: updateSet: success');
 	}
 	
-	String _getNewSetID() {
-		return _id + '_' + DateTime.now().millisecondsSinceEpoch.toString();
+	Future<void> deleteSet(String setID) async {
+		_removeSetInfo(setID);
+		
+		try {
+			DBService.instance.updateUserDoc(this);
+		} catch (e) {
+			print('$_TAG: deleteSet: failure (updateUserDoc), error: ${e.toString()}');
+		}
+		
+		try {
+			DBService.instance.deleteSetDoc(setID);
+		} catch (e) {
+			print('$_TAG: deleteSet: failure (deleteSetDoc), error: ${e.toString()}');
+		}
+		
+		print('$_TAG: deleteSet: success');
 	}
 	
-	void _updateSetInfo(SetInfo info) {
-		_sets.removeWhere((set) => set.id == info.id);
+	String _getNewSetID() {
+		return _id + '_' + DateTime
+			.now()
+			.millisecondsSinceEpoch
+			.toString();
+	}
+	
+	void _updateSetInfo(MWSetInfo info) {
+		_removeSetInfo(info.id);
 		_sets.add(info.copy());
+	}
+	
+	void _removeSetInfo(String setID) {
+		_sets.removeWhere((set) => set.id == setID);
 	}
 }
 

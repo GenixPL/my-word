@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:my_word/models/set_info.dart';
+import 'package:my_word/models/MWSetInfo.dart';
 import 'package:my_word/models/user.dart';
 import 'package:my_word/models/user_set.dart';
 
@@ -84,7 +84,7 @@ class DBService {
 	
 	
 	//SETS
-	Future<void> createSetDoc(SetInfo setInfo) async {
+	Future<void> createSetDoc(MWSetInfo setInfo) async {
 		try {
 			await _privateSetsCollection.document(setInfo.id).setData(setInfo.toMap());
 		} catch (e) {
@@ -118,5 +118,16 @@ class DBService {
 		}
 		
 		print('$_TAG: updateSetDoc: success');
+	}
+	
+	Future<void> deleteSetDoc(String setID) async {
+		try {
+			await _privateSetsCollection.document(setID).delete();
+		} catch (e) {
+			print('$_TAG: deleteSetDoc: failure, error: ${e.toString()}');
+			throw e;
+		}
+		
+		print('$_TAG: deleteSetDoc: success');
 	}
 }

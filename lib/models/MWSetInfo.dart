@@ -1,8 +1,6 @@
 
 
-class SetInfo {
-
-	//TODO: it may need positionToRender key
+class MWSetInfo {
 
 	String name;
 	String lang1;
@@ -10,15 +8,15 @@ class SetInfo {
 	String id;
 
 
-	SetInfo(this.name, this.lang1, this.lang2, this.id);
+	MWSetInfo(this.name, this.lang1, this.lang2, this.id);
 
-	static SetInfo fromMap(Map<dynamic, dynamic> map) {
+	static MWSetInfo fromMap(Map<dynamic, dynamic> map) {
 		var name = map['name'] ?? (throw ArgumentError("set_name is required"));
 		var lang1 = map['lang1'] ?? (throw ArgumentError("set_lang1 is required"));
 		var lang2 = map['lang2'] ?? (throw ArgumentError("set_lang2 is required"));
 		var id = map['id'] ?? (throw ArgumentError("set_id is required"));
 
-		return SetInfo(name, lang1, lang2, id);
+		return MWSetInfo(name, lang1, lang2, id);
 	}
 
 	Map<String, dynamic> toMap() {
@@ -32,8 +30,8 @@ class SetInfo {
 		return map;
 	}
 	
-	SetInfo copy() {
-		return SetInfo(name, lang1, lang2, id);
+	MWSetInfo copy() {
+		return MWSetInfo(name, lang1, lang2, id);
 	}
 
 }

@@ -1,10 +1,10 @@
-import 'package:my_word/models/set_info.dart';
+import 'package:my_word/models/MWSetInfo.dart';
 import 'package:my_word/models/word_pair.dart';
 
 
 class UserSet {
 	
-	SetInfo _setInfo;
+	MWSetInfo _setInfo;
 	List<WordPair> _wordPairs;
 	
 	String get id => _setInfo.id;
@@ -17,7 +17,7 @@ class UserSet {
 	
 	List<WordPair> get wordPairs => _wordPairs;
 	
-	SetInfo get setInfo => _setInfo;
+	MWSetInfo get setInfo => _setInfo;
 	
 	
 	set name(String name) {
@@ -36,7 +36,7 @@ class UserSet {
 	UserSet(this._setInfo, this._wordPairs);
 	
 	static UserSet fromMap(Map<dynamic, dynamic> map) {
-		var setInfo = SetInfo.fromMap(map);
+		var setInfo = MWSetInfo.fromMap(map);
 		
 		var wordPairs = List<WordPair>();
 		if (map.containsKey('wordPairs')) {

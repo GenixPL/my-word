@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:my_word/models/user_set.dart';
+import 'package:my_word/models/word_pair.dart';
 import 'package:my_word/pages/account/account_menu_page.dart';
 import 'package:my_word/pages/auth/auth_email_password_page.dart';
 import 'package:my_word/pages/auth/auth_menu_page.dart';
 import 'package:my_word/pages/home_page.dart';
 import 'package:my_word/pages/sets/add_pair_page.dart';
 import 'package:my_word/pages/sets/create_set_page.dart';
+import 'package:my_word/pages/sets/edit_pair.dart';
 import 'package:my_word/pages/sets/edit_set_page.dart';
 import 'package:my_word/pages/sets/sets_menu_page.dart';
 import 'package:my_word/services/auth_service.dart';
@@ -45,12 +47,15 @@ class RouteGenerator {
 			case '/sets/create':
 				return MaterialPageRoute(builder: (_) => CreateSetPage());
 			
-			case '/sets/edit':
+			case '/sets/edit': //TODO: change to edit-set
 				return _editSetPageRoute(args);
 			
 			case '/sets/edit/add':
 				return _addPairPageRoute(args);
 				
+			case '/sets/edit/edit-pair':
+				return _editPairPageRoute(args);
+			
 			default:
 				return _errorRoute('No path specified.');
 		}
@@ -88,6 +93,18 @@ class RouteGenerator {
 		}
 		
 		return MaterialPageRoute(builder: (_) => AddPairPage(args));
+	}
+	
+	static Route<dynamic> _editPairPageRoute(Object args) {
+		if (args == null) {
+			return _errorRoute('No arguments specified.');
+		}
+		
+		if (args is! WordPair) {
+			return _errorRoute('Sepcified arguments are of bad type.');
+		}
+		
+		return MaterialPageRoute(builder: (_) => EditPairPage(args));
 	}
 	
 }

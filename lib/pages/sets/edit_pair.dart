@@ -1,28 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:my_word/models/user_set.dart';
+import 'package:my_word/models/word_pair.dart';
 
 
-class AddPairPage extends StatefulWidget {
+class EditPairPage extends StatefulWidget {
 	
-	final UserSet userSet;
+	final WordPair wordPair;
 	
-	AddPairPage(this.userSet);
+	EditPairPage(this.wordPair);
 	
 	@override
-	_AddPairPageState createState() => _AddPairPageState(userSet);
+	_EditPairPageState createState() => _EditPairPageState(wordPair);
 }
 
 
-class _AddPairPageState extends State<AddPairPage> {
+class _EditPairPageState extends State<EditPairPage> {
 	
-	UserSet _set;
+	WordPair _pair;
 	
 	final _word1Controller = TextEditingController();
 	final _word2Controller = TextEditingController();
 	bool _isWord1Valid = true;
 	bool _isWord2Valid = true;
 	
-	_AddPairPageState(this._set);
+	_EditPairPageState(this._pair) {
+		_word1Controller.text = _pair.word1;
+		_word2Controller.text = _pair.word2;
+	}
 	
 	
 	@override
@@ -36,7 +40,7 @@ class _AddPairPageState extends State<AddPairPage> {
 				child: Column(
 					children: <Widget>[
 						
-						_pair(context),
+						_buildPair(context),
 						
 						_bottom(context),
 					
@@ -46,7 +50,7 @@ class _AddPairPageState extends State<AddPairPage> {
 		);
 	}
 	
-	Widget _pair(BuildContext context) {
+	Widget _buildPair(BuildContext context) {
 		return Expanded(
 			child: Column(
 				mainAxisAlignment: MainAxisAlignment.center,
@@ -114,7 +118,7 @@ class _AddPairPageState extends State<AddPairPage> {
 					child: RaisedButton(
 						color: Colors.green,
 						child: Text(
-							'Add',
+							'Save',
 							style: TextStyle(
 								fontWeight: FontWeight.w600
 							),
@@ -124,7 +128,8 @@ class _AddPairPageState extends State<AddPairPage> {
 							
 							if (_isWord1Valid && _isWord2Valid) {
 								FocusScope.of(context).requestFocus(new FocusNode());
-								_set.addWordPair(_word1Controller.text, _word2Controller.text);
+								_pair.word1 = _word1Controller.text;
+								_pair.word2 = _word2Controller.text;
 								Navigator.of(context).pop();
 							}
 						},

@@ -56,6 +56,7 @@ class _EditSetPageState extends State<EditSetPage> {
 		return Padding(
 			padding: EdgeInsets.all(8.0),
 			child: TextFormField(
+				textAlign: TextAlign.center,
 				style: TextStyle(
 					fontSize: 16.0,
 					fontWeight: FontWeight.w400,
@@ -136,7 +137,6 @@ class _EditSetPageState extends State<EditSetPage> {
 	}
 	
 	Widget _buildListTile(BuildContext context, int i) {
-		//'${_set.wordPairs[i].word1} - ${_set.wordPairs[i].word2}',
 		return Dismissible(
 			key: Key(_set.wordPairs[i].id),
 			background: Container(color: Colors.red,),
@@ -187,6 +187,9 @@ class _EditSetPageState extends State<EditSetPage> {
 					
 					],
 				),
+				onTap: () {
+					Navigator.of(context).pushNamed('/sets/edit/edit-pair', arguments: _set.wordPairs[i]);
+				},
 			),
 			onDismissed: (direction) {
 				setState(() {
@@ -212,11 +215,71 @@ class _EditSetPageState extends State<EditSetPage> {
 							),
 						),
 						onPressed: () {
-							print('remove');
-							//TODO: ask if for sure
-							//(encapsulate both under to user)
-							//TODO: remove from user
-							//TODO: remove from private-sets
+							showDialog(
+								context: context,
+								builder: (BuildContext context) {
+									// return object of type Dialog
+									return Dialog(
+										child: Column(
+											mainAxisSize: MainAxisSize.min,
+											children: <Widget>[
+												
+												Padding(
+												  padding: const EdgeInsets.fromLTRB(8.0, 16.0, 8.0, 8.0),
+												  child: Text(
+												  	'This cannot be undone!',
+												  	textAlign: TextAlign.center,
+													  style: TextStyle(
+														  fontWeight: FontWeight.w600,
+														  fontSize: 24.0,
+													  ),
+												  ),
+												),
+												
+												Row(
+													mainAxisSize: MainAxisSize.min,
+													mainAxisAlignment: MainAxisAlignment.center,
+													children: <Widget>[
+														
+														FlatButton(
+															child: new Text(
+																'Cancel',
+																style: TextStyle(
+																	color: Colors.white,
+																),
+															),
+															onPressed: () {
+																Navigator.of(context).pop();
+															},
+														),
+														
+														FlatButton(
+															child: new Text(
+																'Remove',
+																style: TextStyle(
+																	color: Colors.red,
+																),
+															),
+															onPressed: () {
+																Navigator.of(context).pop();
+																
+																AuthService.instance.user.deleteSet(_set.id)
+																	.then((v) {
+																		Navigator.of(context).pop();
+																}).catchError((e){
+																	ShowInfo.error(context, '', e);
+																});
+															},
+														),
+													
+													],
+												),
+											
+											],
+										),
+									);
+								},
+							);
 						}
 					),
 				),
@@ -312,7 +375,7 @@ class _EditSetPageState extends State<EditSetPage> {
 			children: <Widget>[
 				Text(language.name),
 				SizedBox(width: 8.0),
-				Flexible(child: Text("(${language.isoCode})"))
+				Flexible(child: Text('(${language.isoCode})'))
 			],
 		);
 	}
