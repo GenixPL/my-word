@@ -1,16 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
-import 'package:my_word/models/MWUser.dart';
-import 'package:my_word/services/MWDBService.dart';
+import 'package:my_word/models/MwUser.dart';
+import 'package:my_word/services/MwDBService.dart';
 
-class MWAuthService with ChangeNotifier {
+class MwAuthService with ChangeNotifier {
 	
 	//singleton stuff
-	static final MWAuthService _instance = MWAuthService._init();
+	static final MwAuthService _instance = MwAuthService._init();
 	
-	static MWAuthService get instance => _instance;
+	static MwAuthService get instance => _instance;
 	
-	MWAuthService._init();
+	MwAuthService._init();
 	
 	
 	
@@ -19,13 +19,13 @@ class MWAuthService with ChangeNotifier {
 	FirebaseAuth _auth = FirebaseAuth.instance;
 	
 	bool _isSigned = false;
-	MWUser _user;
+	MwUser _user;
 	
 	
 	
 	bool get isSigned => _isSigned;
 	
-	MWUser get user => _user;
+	MwUser get user => _user;
 	
 	
 	Future<void> checkUserExists() async {
@@ -45,13 +45,13 @@ class MWAuthService with ChangeNotifier {
 		
 		var userDoc;
 		try {
-			userDoc = await DBService.instance.getUserDoc(firebaseUser.uid);
+			userDoc = await MwDbService.instance.getUserDoc(firebaseUser.uid);
 		} catch (e) {
 			print('$_TAG: checkUserExists: failure (getUserDoc), error: ${e.toString()}');
 			throw e;
 		}
 		
-		_user = MWUser.fromMap(userDoc);
+		_user = MwUser.fromMap(userDoc);
 		_isSigned = true;
 		
 		print('$_TAG: checkUserExists: success (user exists)');
@@ -73,13 +73,13 @@ class MWAuthService with ChangeNotifier {
 		
 		var userDoc;
 		try {
-			userDoc = await DBService.instance.getUserDoc(authResult.user.uid);
+			userDoc = await MwDbService.instance.getUserDoc(authResult.user.uid);
 		} catch (e) {
 			print('$_TAG: signInEmailPassword: failure (getUserDoc), error: ${e.toString()}');
 			throw e;
 		}
 		
-		_user = MWUser.fromMap(userDoc);
+		_user = MwUser.fromMap(userDoc);
 		_isSigned = true;
 		
 		print('$_TAG: signInEmailPassword: success');
@@ -96,7 +96,7 @@ class MWAuthService with ChangeNotifier {
 		}
 		
 		try {
-			await DBService.instance.createUserDoc(authResult.user);
+			await MwDbService.instance.createUserDoc(authResult.user);
 		} catch (e) {
 			print('$_TAG: signUpEmailPassword: failure (createUserDoc), error: ${e.toString()}');
 			throw e;
@@ -104,13 +104,13 @@ class MWAuthService with ChangeNotifier {
 		
 		var userDoc;
 		try {
-			userDoc = await DBService.instance.getUserDoc(authResult.user.uid);
+			userDoc = await MwDbService.instance.getUserDoc(authResult.user.uid);
 		} catch (e) {
 			print('$_TAG: signUpEmailPassword: failure (getUserDoc), error: ${e.toString()}');
 			throw e;
 		}
 		
-		_user = MWUser.fromMap(userDoc);
+		_user = MwUser.fromMap(userDoc);
 		_isSigned = true;
 		
 		print('$_TAG: signUpEmailPassword: success');
