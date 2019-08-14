@@ -1,6 +1,6 @@
 
 
-class WordPair {
+class MWWordPair {
 	
 	String _id;
 	String word1;
@@ -10,20 +10,20 @@ class WordPair {
 	String get id => _id;
 	
 	
-	WordPair(this._id, this.word1, this.word2);
+	MWWordPair(this._id, this.word1, this.word2);
 	
-	static WordPair fromMap(Map<dynamic, dynamic> map) {
+	static MWWordPair fromMap(Map<dynamic, dynamic> map) {
 		var id = map['id'] ?? (throw ArgumentError("id is required"));
 		var word1 = map['word1'] ?? (throw ArgumentError("word1 is required"));
 		var word2 = map['word2'] ?? (throw ArgumentError("word2 is required"));
 		
-		return WordPair(id, word1, word2);
+		return MWWordPair(id, word1, word2);
 	}
 	
-	static WordPair createNew(String word1, String word2) {
+	static MWWordPair createNew(String word1, String word2) {
 		var id = DateTime.now().millisecondsSinceEpoch.toString();
 		
-		return WordPair(id, word1, word2);
+		return MWWordPair(id, word1, word2);
 	}
 	
 	Map<String, dynamic> toMap() {
@@ -34,5 +34,9 @@ class WordPair {
 		map['word2'] = word2;
 		
 		return map;
+	}
+	
+	MWWordPair copy(){
+		return MWWordPair(_id, word1, word2);
 	}
 }

@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:my_word/models/MWSetInfo.dart';
-import 'package:my_word/models/user.dart';
-import 'package:my_word/models/user_set.dart';
+import 'package:my_word/models/MWUser.dart';
+import 'package:my_word/models/MWSet.dart';
 
 
 class DBService {
@@ -37,7 +37,7 @@ class DBService {
 		print('$_TAG: createUserDoc: success');
 	}
 	
-	Future<void> updateUserDoc(User user) async {
+	Future<void> updateUserDoc(MWUser user) async {
 		try {
 			await _usersCollection.document(user.id).setData(user.toMap(), merge: true);
 		} catch (e) {
@@ -109,7 +109,7 @@ class DBService {
 		return docSnap.data;
 	}
 	
-	Future<void> updateSetDoc(UserSet set) async {
+	Future<void> updateSetDoc(MWSet set) async {
 		try {
 			await _privateSetsCollection.document(set.id).setData(set.toMap(), merge: true);
 		} catch (e) {

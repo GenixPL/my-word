@@ -5,9 +5,12 @@ class MWSetInfo {
 	String name;
 	String lang1;
 	String lang2;
-	String id;
+	String _id;
 
+	
+	String get id => _id;
 
+	
 	MWSetInfo(this.name, this.lang1, this.lang2, this.id);
 
 	static MWSetInfo fromMap(Map<dynamic, dynamic> map) {

@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
-import 'package:my_word/models/user.dart';
+import 'package:my_word/models/MWUser.dart';
 import 'package:my_word/services/db_service.dart';
 
 class AuthService with ChangeNotifier {
@@ -19,13 +19,13 @@ class AuthService with ChangeNotifier {
 	FirebaseAuth _auth = FirebaseAuth.instance;
 	
 	bool _isSigned = false;
-	User _user;
+	MWUser _user;
 	
 	
 	
 	bool get isSigned => _isSigned;
 	
-	User get user => _user;
+	MWUser get user => _user;
 	
 	
 	Future<void> checkUserExists() async {
@@ -51,7 +51,7 @@ class AuthService with ChangeNotifier {
 			throw e;
 		}
 		
-		_user = User.fromMap(userDoc);
+		_user = MWUser.fromMap(userDoc);
 		_isSigned = true;
 		
 		print('$_TAG: checkUserExists: success (user exists)');
@@ -79,7 +79,7 @@ class AuthService with ChangeNotifier {
 			throw e;
 		}
 		
-		_user = User.fromMap(userDoc);
+		_user = MWUser.fromMap(userDoc);
 		_isSigned = true;
 		
 		print('$_TAG: signInEmailPassword: success');
@@ -110,7 +110,7 @@ class AuthService with ChangeNotifier {
 			throw e;
 		}
 		
-		_user = User.fromMap(userDoc);
+		_user = MWUser.fromMap(userDoc);
 		_isSigned = true;
 		
 		print('$_TAG: signUpEmailPassword: success');

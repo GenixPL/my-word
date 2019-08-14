@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_word/main_drawer.dart';
 import 'package:my_word/services/auth_service.dart';
-import 'package:my_word/models/user_set.dart';
+import 'package:my_word/models/MWSet.dart';
 import 'package:my_word/services/db_service.dart';
 import 'package:my_word/show_info.dart';
 import 'package:provider/provider.dart';
@@ -76,7 +76,7 @@ class SetsPage extends StatelessWidget {
 		  			),
 		  			onTap: () {
 		  				DBService.instance.getSetDoc(sets[i].id).then((map) { //TODO: move that responsibility
-		  					Navigator.of(context).pushNamed('/sets/edit', arguments: UserSet.fromMap(map));
+		  					Navigator.of(context).pushNamed('/sets/edit', arguments: MWSet.fromMap(map));
 		  				}).catchError((e) {
 		  					ShowInfo.error(context, '', e);
 		  				});

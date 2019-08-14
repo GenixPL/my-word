@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_word/models/user_set.dart';
-import 'package:my_word/models/word_pair.dart';
+import 'package:my_word/models/MWSet.dart';
+import 'package:my_word/models/MWWordPair.dart';
 import 'package:my_word/pages/account/account_menu_page.dart';
 import 'package:my_word/pages/auth/auth_email_password_page.dart';
 import 'package:my_word/pages/auth/auth_menu_page.dart';
@@ -76,7 +76,7 @@ class RouteGenerator {
 			return _errorRoute('No arguments specified.');
 		}
 		
-		if (args is! UserSet) {
+		if (args is! MWSet) {
 			return _errorRoute('Sepcified arguments are of bad type.');
 		}
 		
@@ -88,7 +88,7 @@ class RouteGenerator {
 			return _errorRoute('No arguments specified.');
 		}
 		
-		if (args is! UserSet) {
+		if (args is! MWSet) {
 			return _errorRoute('Sepcified arguments are of bad type.');
 		}
 		
@@ -100,7 +100,7 @@ class RouteGenerator {
 			return _errorRoute('No arguments specified.');
 		}
 		
-		if (args is! WordPair) {
+		if (args is! MWWordPair) {
 			return _errorRoute('Sepcified arguments are of bad type.');
 		}
 		

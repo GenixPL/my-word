@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:my_word/models/user_set.dart';
+import 'package:my_word/models/MWSet.dart';
 
 
 class AddPairPage extends StatefulWidget {
 	
-	final UserSet userSet;
+	final MWSet userSet;
 	
 	AddPairPage(this.userSet);
 	
@@ -15,7 +15,7 @@ class AddPairPage extends StatefulWidget {
 
 class _AddPairPageState extends State<AddPairPage> {
 	
-	UserSet _set;
+	MWSet _set;
 	
 	final _word1Controller = TextEditingController();
 	final _word2Controller = TextEditingController();

@@ -1,9 +1,9 @@
 import 'package:my_word/models/MWSetInfo.dart';
-import 'package:my_word/models/user_set.dart';
+import 'package:my_word/models/MWSet.dart';
 import 'package:my_word/services/db_service.dart';
 
 
-class User {
+class MWUser {
 	
 	//TODO: move logic to separate service
 	
@@ -22,9 +22,9 @@ class User {
 	
 	
 	
-	User(this._id, this._email, this._sets);
+	MWUser(this._id, this._email, this._sets);
 	
-	static User fromMap(Map<String, dynamic> map) {
+	static MWUser fromMap(Map<String, dynamic> map) {
 		var id = map['id'] ?? (throw ArgumentError("id is required"));
 		var email = map['email'] ?? (throw ArgumentError("email is required"));
 		
@@ -34,7 +34,7 @@ class User {
 			setsList.forEach((setMap) => sets.add(MWSetInfo.fromMap(setMap)));
 		}
 		
-		return User(id, email, sets);
+		return MWUser(id, email, sets);
 	}
 	
 	Map<String, dynamic> toMap() {
@@ -70,7 +70,7 @@ class User {
 		print('$_TAG: addSet: success');
 	}
 	
-	Future<void> updateSet(UserSet set) async {
+	Future<void> updateSet(MWSet set) async {
 		_updateSetInfo(set.setInfo);
 		
 		try {
