@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_word/main_drawer.dart';
 import 'package:my_word/models/MwSet.dart';
-import 'package:my_word/pages/learn/MwLearnMenuPage.dart';
+import 'package:my_word/pages/learn/MwLearningModeArgs.dart';
 
 
 class MwLearnFirstModePage extends StatefulWidget {
@@ -73,32 +73,32 @@ class _MwLearnFirstModePageSate extends State<MwLearnFirstModePage> {
 								
 								Expanded(
 									flex: 50,
-								  child: Center(
-								    child: Text(
-								    	_getFirstPart(),
-								    	textAlign: TextAlign.center,
-								    	style: TextStyle(
-								    		fontSize: 24.0,
-								    		fontWeight: FontWeight.w600,
-								    	),
-								    ),
-								  ),
+									child: Center(
+										child: Text(
+											_getFirstPart(),
+											textAlign: TextAlign.center,
+											style: TextStyle(
+												fontSize: 24.0,
+												fontWeight: FontWeight.w600,
+											),
+										),
+									),
 								),
 								
 								Divider(),
 								
 								Expanded(
 									flex: 50,
-								  child: Center(
-								    child: Text(
-								    	_getSecondPart(),
-								    	textAlign: TextAlign.center,
-								    	style: TextStyle(
-								    		fontSize: 24.0,
-								    		fontWeight: FontWeight.w600,
-								    	),
-								    ),
-								  ),
+									child: Center(
+										child: Text(
+											_getSecondPart(),
+											textAlign: TextAlign.center,
+											style: TextStyle(
+												fontSize: 24.0,
+												fontWeight: FontWeight.w600,
+											),
+										),
+									),
 								),
 							
 							],

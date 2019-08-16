@@ -7,6 +7,7 @@ import 'package:my_word/pages/auth/auth_menu_page.dart';
 import 'package:my_word/pages/home_page.dart';
 import 'package:my_word/pages/learn/MwLearnFirstModePage.dart';
 import 'package:my_word/pages/learn/MwLearnMenuPage.dart';
+import 'package:my_word/pages/learn/MwLearningModeArgs.dart';
 import 'package:my_word/pages/sets/add_pair_page.dart';
 import 'package:my_word/pages/sets/create_set_page.dart';
 import 'package:my_word/pages/sets/edit_pair.dart';
@@ -118,7 +119,6 @@ class RouteGenerator {
 	}
 	
 	static Route<dynamic> _learnFirstMode(Object args) {
-		
 		if (args == null) {
 			return _errorRoute('No arguments specified.');
 		}
