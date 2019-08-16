@@ -19,7 +19,9 @@ class HomePage extends StatelessWidget {
 
 						RaisedButton(
 							child: Text('Learn'),
-							onPressed: null,
+							onPressed: () {
+								Navigator.pushNamed(context, '/learn');
+							},
 						),
 
 						RaisedButton(

@@ -66,6 +66,36 @@ class MainDrawer extends StatelessWidget {
 								Padding(
 									padding: const EdgeInsets.all(12.0),
 									child: Icon(
+										Icons.play_arrow,
+										color: RouteGenerator.lastRoute == '/learn' ? Colors.grey : Colors.white,
+									),
+								),
+								Expanded(
+									child: Text(
+										'Learn',
+										style: TextStyle(
+											color: RouteGenerator.lastRoute == '/learn' ? Colors.grey : Colors.white,
+										),
+									)
+								),
+							],
+						),
+						onTap: RouteGenerator.lastRoute == '/learn' ? () {
+							Navigator.pop(context);
+						} : () {
+							Navigator.pop(context); //hides menu
+							Navigator.pushNamed(context, '/learn');
+						},
+					),
+					
+					GestureDetector(
+						child: Row(
+							mainAxisAlignment: MainAxisAlignment.start,
+							mainAxisSize: MainAxisSize.max,
+							children: <Widget>[
+								Padding(
+									padding: const EdgeInsets.all(12.0),
+									child: Icon(
 										Icons.view_headline,
 										color: RouteGenerator.lastRoute == '/sets' ? Colors.grey : Colors.white,
 									),

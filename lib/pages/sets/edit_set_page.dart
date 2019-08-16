@@ -8,12 +8,12 @@ import 'package:my_word/show_info.dart';
 
 class EditSetPage extends StatefulWidget {
 	
-	final MwSet userSet;
+	final MwSet _set;
 	
-	EditSetPage(this.userSet);
+	EditSetPage(this._set);
 	
 	@override
-	_EditSetPageState createState() => _EditSetPageState(userSet);
+	_EditSetPageState createState() => _EditSetPageState(_set);
 }
 
 

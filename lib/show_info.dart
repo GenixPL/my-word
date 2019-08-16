@@ -11,8 +11,14 @@ class ShowInfo {
 	static simple(BuildContext context, String msg) {
 		Scaffold.of(context).showSnackBar(
 			SnackBar(
-				content: Text('$msg'),
+				content: Text(
+					'$msg',
+					style: TextStyle(
+						color: Colors.white,
+					),
+				),
 				behavior: SnackBarBehavior.floating,
+				backgroundColor: Color.fromRGBO(64, 64, 64, 1.0),
 			)
 		);
 	}

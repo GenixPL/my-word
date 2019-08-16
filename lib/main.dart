@@ -4,6 +4,7 @@ import 'package:my_word/models/MwSetInfo.dart';
 import 'package:my_word/route_generator.dart';
 import 'package:my_word/services/user/MwUserService.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/rendering.dart';
 
 
 void main() async {
@@ -17,6 +18,9 @@ class MyApp extends StatelessWidget {
 	
 	@override
 	Widget build(BuildContext context) {
+		
+		debugPaintSizeEnabled = false;
+		
 		return MultiProvider(
 			child: MaterialApp(
 				initialRoute: '/',

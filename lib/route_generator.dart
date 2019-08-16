@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:my_word/services/MwFactory.dart';
 import 'package:my_word/models/MwSet.dart';
 import 'package:my_word/models/MwWordPair.dart';
 import 'package:my_word/pages/account/account_menu_page.dart';
 import 'package:my_word/pages/auth/auth_email_password_page.dart';
 import 'package:my_word/pages/auth/auth_menu_page.dart';
 import 'package:my_word/pages/home_page.dart';
+import 'package:my_word/pages/learn/MwLearnFirstModePage.dart';
+import 'package:my_word/pages/learn/MwLearnMenuPage.dart';
 import 'package:my_word/pages/sets/add_pair_page.dart';
 import 'package:my_word/pages/sets/create_set_page.dart';
 import 'package:my_word/pages/sets/edit_pair.dart';
 import 'package:my_word/pages/sets/edit_set_page.dart';
 import 'package:my_word/pages/sets/sets_menu_page.dart';
+import 'package:my_word/services/MwFactory.dart';
 
 
 class RouteGenerator {
@@ -56,10 +58,18 @@ class RouteGenerator {
 			case '/sets/edit/edit-pair':
 				return _editPairPageRoute(args);
 			
+			case '/learn':
+				return MaterialPageRoute(builder: (_) => MwLearnMenuPage());
+			
+			case '/learn/first':
+				return _learnFirstMode(args);
+			
 			default:
 				return _errorRoute('No path specified.');
 		}
 	}
+	
+	
 	
 	static Route<dynamic> _errorRoute(String msg) {
 		return MaterialPageRoute(builder: (_) {
@@ -105,6 +115,19 @@ class RouteGenerator {
 		}
 		
 		return MaterialPageRoute(builder: (_) => EditPairPage(args));
+	}
+	
+	static Route<dynamic> _learnFirstMode(Object args) {
+		
+		if (args == null) {
+			return _errorRoute('No arguments specified.');
+		}
+		
+		if (args is! MwLearningModeArgs) {
+			return _errorRoute('Sepcified arguments are of bad type.');
+		}
+		
+		return MaterialPageRoute(builder: (_) => MwLearnFirstModePage(args));
 	}
 	
 }
